@@ -3,6 +3,7 @@ package com.task.usecase
 import com.task.data.DataRepository
 import com.task.data.remote.Data
 import com.task.data.remote.Error
+import com.task.data.remote.Error.Companion.INTERNAL_SERVER_ERROR
 import com.task.data.remote.dto.NewsItem
 import com.task.data.remote.dto.NewsModel
 import com.task.ui.base.listeners.BaseCallback
@@ -29,7 +30,7 @@ constructor(private val dataRepository: DataRepository, override val coroutineCo
                     val data = serviceResponse.data
                     callback.onSuccess(data as NewsModel)
                 } else {
-                    callback.onFail(serviceResponse?.error)
+                    callback.onFail(serviceResponse?.error ?: Error(code = INTERNAL_SERVER_ERROR))
                 }
             } catch (e: Exception) {
                 callback.onFail(Error(e))

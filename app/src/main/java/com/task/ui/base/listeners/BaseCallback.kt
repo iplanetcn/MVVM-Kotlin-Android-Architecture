@@ -10,5 +10,5 @@ import com.task.data.remote.dto.NewsModel
 interface BaseCallback {
     fun onSuccess(data: NewsModel)
 
-    fun onFail(error : Error?)
+    fun onFail(error : Error)
 }

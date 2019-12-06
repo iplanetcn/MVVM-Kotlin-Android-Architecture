@@ -33,8 +33,8 @@ constructor(newsDataUseCase: NewsUseCase) : BaseViewModel() {
             newsModel.postValue(data)
         }
 
-        override fun onFail(error: Error?) {
-            if (error?.code == -1) {
+        override fun onFail(error: Error) {
+            if (error.code == Error.NO_INTERNET_CONNECTION) {
                 noInterNetConnection.postValue(true)
             } else {
                 showError.postValue(error)
@@ -51,5 +51,10 @@ constructor(newsDataUseCase: NewsUseCase) : BaseViewModel() {
         } else {
             noSearchFound.value = true
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+
     }
 }
