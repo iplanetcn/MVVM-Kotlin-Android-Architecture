@@ -83,7 +83,7 @@ class NewsListActivity : BaseActivity(), RecyclerItemListener {
             pb_loading.visibility = GONE
         })
 
-        viewModel.newsModel.observe(this, Observer { newsModel ->
+        viewModel.imagedLiveData.observe(this, Observer { newsModel ->
             // we don't need any null checks here for the adapter since LiveData guarantees that
             if (!(newsModel?.newsItems.isNullOrEmpty())) {
                 val newsAdapter = NewsAdapter(this, newsModel?.newsItems!!)
@@ -105,14 +105,14 @@ class NewsListActivity : BaseActivity(), RecyclerItemListener {
     }
 
     override fun onItemSelected(position: Int) =
-            this.navigateToDetailsScreen(news = newsListViewModel.newsModel.value?.newsItems?.get(position)!!)
+            this.navigateToDetailsScreen(news = newsListViewModel.imagedLiveData.value?.newsItems?.get(position)!!)
 
     private fun getNews() {
         pb_loading.visibility = VISIBLE
         tv_no_data.visibility = GONE
         rl_news_list.visibility = GONE
         EspressoIdlingResource.increment()
-        newsListViewModel.getNews()
+        newsListViewModel.getImages()
     }
 
     private fun navigateToDetailsScreen(news: NewsItem) {

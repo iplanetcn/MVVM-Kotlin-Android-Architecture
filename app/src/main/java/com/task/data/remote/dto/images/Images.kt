@@ -1,0 +1,35 @@
+package com.task.data.remote.dto.images
+
+
+data class Images(
+    val attributes: List<Attribute?>?,
+    val contact: Contact?,
+    val created: Int?,
+    val customDimensions: CustomDimensions?,
+    val features: List<String?>?,
+    val financeBudget: FinanceBudget?,
+    val htmlDescription: String?,
+    val id: Int?,
+    val images: List<Image?>?,
+    val isConditionNew: Boolean?,
+    val isDamageCase: Boolean?,
+    val isFinancingFeature: Boolean?,
+    val isNew: Boolean?,
+    val links: List<Link?>?,
+    val makeId: Int?,
+    val makeKey: String?,
+    val mediaGallery: MediaGallery?,
+    val modelId: Int?,
+    val modelKey: String?,
+    val modified: Int?,
+    val price: Price?,
+    val priceRating: PriceRating?,
+    val readyToDrive: Boolean?,
+    val renewed: Int?,
+    val segment: String?,
+    val sellerId: Int?,
+    val title: String?,
+    val url: String?,
+    val vc: String?,
+    val version: Int?
+)

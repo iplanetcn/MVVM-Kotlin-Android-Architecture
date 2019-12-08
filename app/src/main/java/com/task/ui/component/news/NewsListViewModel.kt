@@ -2,11 +2,10 @@ package com.task.ui.component.news
 
 import androidx.lifecycle.MutableLiveData
 import com.task.data.remote.Error
-import com.task.data.remote.dto.NewsItem
-import com.task.data.remote.dto.NewsModel
+import com.task.data.remote.dto.images.Images
 import com.task.ui.base.BaseViewModel
 import com.task.ui.base.listeners.BaseCallback
-import com.task.usecase.NewsUseCase
+import com.task.usecase.images.ImagesUseCase
 import javax.inject.Inject
 
 /**
@@ -14,23 +13,23 @@ import javax.inject.Inject
  */
 
 class NewsListViewModel @Inject
-constructor(newsDataUseCase: NewsUseCase) : BaseViewModel() {
+constructor(imagesUseCase: ImagesUseCase) : BaseViewModel() {
 
-    private var newsUseCase: NewsUseCase = newsDataUseCase
-    var newsModel: MutableLiveData<NewsModel> = MutableLiveData()
-    var newsSearchFound: MutableLiveData<NewsItem> = MutableLiveData()
-    var noSearchFound: MutableLiveData<Boolean> = MutableLiveData()
+    private var imagesUseCase: ImagesUseCase = imagesUseCase
+    var imagedLiveData: MutableLiveData<Images> = MutableLiveData()
+//    var newsSearchFound: MutableLiveData<NewsItem> = MutableLiveData()
+//    var noSearchFound: MutableLiveData<Boolean> = MutableLiveData()
     var noInterNetConnection: MutableLiveData<Boolean> = MutableLiveData()
     var showError: MutableLiveData<Error> = MutableLiveData()
 
-    fun getNews() {
-        newsUseCase.getNews(callback)
+    fun getImages() {
+        imagesUseCase.getImages(callback)
     }
 
     private val callback = object : BaseCallback {
 
-        override fun onSuccess(data: NewsModel) {
-            newsModel.postValue(data)
+        override fun onSuccess(data: Any?) {
+            imagedLiveData.postValue(data as Images)
         }
 
         override fun onFail(error: Error) {
@@ -40,16 +39,6 @@ constructor(newsDataUseCase: NewsUseCase) : BaseViewModel() {
                 showError.postValue(error)
             }
 
-        }
-    }
-
-     fun onSearchClick(newsTitle: String) {
-        val news = newsModel.value?.newsItems
-        if (newsTitle.isNotEmpty() && !news.isNullOrEmpty()) {
-            newsSearchFound.value = newsUseCase.searchByTitle(news, newsTitle)
-            noSearchFound.value = (newsSearchFound.value == null)
-        } else {
-            noSearchFound.value = true
         }
     }
 

@@ -6,4 +6,5 @@ package com.task.data.remote
 
 internal interface RemoteSource {
     fun requestNews(): Data?
+    fun requestImages(): Data?
 }

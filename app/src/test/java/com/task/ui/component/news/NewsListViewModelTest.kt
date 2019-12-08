@@ -48,7 +48,7 @@ class NewsListViewModelTest {
         val newsModeltest = testModelsGenerator.generateNewsModel(newsTitle)
         //1- Mock - double test
         (newsListViewModel).apply {
-            newsModel.value = newsModeltest
+            imagedLiveData.value = newsModeltest
             newsSearchFound.value = testModelsGenerator.generateNewsItemModel(newsTitle)
             noSearchFound.value = false
         }
@@ -56,9 +56,9 @@ class NewsListViewModelTest {
         every { newsUseCase.getNews(callback = capture(callbackCapture)) } answers
                 { callbackCapture.captured.onSuccess(newsModeltest) }
         //2-Call
-        newsListViewModel.getNews()
+        newsListViewModel.getImages()
         //3-verify
-        assert(newsModeltest == newsListViewModel.newsModel.value)
+        assert(newsModeltest == newsListViewModel.imagedLiveData.value)
     }
 
     @Test
@@ -71,7 +71,7 @@ class NewsListViewModelTest {
                 { callbackCapture.captured.onSuccess(newsModel) }
         every { newsUseCase.searchByTitle(newsModel.newsItems!!, newsTitle) } returns newsItem
         //2- Call
-        newsListViewModel.getNews()
+        newsListViewModel.getImages()
         newsListViewModel.onSearchClick(newsTitle)
         //3- Verify
         assert(newsListViewModel.noSearchFound.value == false)
@@ -87,7 +87,7 @@ class NewsListViewModelTest {
                 { callbackCapture.captured.onSuccess(newsModelWithEmptyList) }
         every { newsUseCase.searchByTitle(newsModelWithEmptyList.newsItems!!, newsTitle) } returns null
         //2- Call
-        newsListViewModel.getNews()
+        newsListViewModel.getImages()
         newsListViewModel.onSearchClick(newsTitle)
         //3- Verify
         assert(newsListViewModel.noSearchFound.value == true)
@@ -103,7 +103,7 @@ class NewsListViewModelTest {
                 { callbackCapture.captured.onSuccess(newsModel) }
         every { newsUseCase.searchByTitle(newsModel.newsItems!!, "*") } returns null
         //2- Call
-        newsListViewModel.getNews()
+        newsListViewModel.getImages()
         newsListViewModel.onSearchClick("*")
         //3- Verify
         assert(newsListViewModel.noSearchFound.value == true)

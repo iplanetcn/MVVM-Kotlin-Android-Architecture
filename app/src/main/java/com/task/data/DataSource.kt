@@ -8,4 +8,5 @@ import com.task.data.remote.Data
 
 internal interface DataSource {
     fun requestNews(): Data?
+    fun requestImages(): Data?
 }
