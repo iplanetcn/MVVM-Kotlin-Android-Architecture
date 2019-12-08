@@ -63,7 +63,7 @@ class NewsListActivity : BaseActivity(), RecyclerItemListener {
         viewModel.noInterNetConnection.observe(this, Observer {
             if (it) {
                 tv_no_data.visibility = VISIBLE
-                rl_news_list.visibility = GONE
+                cl_images_list.visibility = GONE
                 toast("Please check your Internet connection!")
                 pb_loading.visibility = GONE
             }
@@ -87,7 +87,7 @@ class NewsListActivity : BaseActivity(), RecyclerItemListener {
             // we don't need any null checks here for the adapter since LiveData guarantees that
             if (!(newsModel?.newsItems.isNullOrEmpty())) {
                 val newsAdapter = NewsAdapter(this, newsModel?.newsItems!!)
-                rv_news_list.adapter = newsAdapter
+                rv_images_list.adapter = newsAdapter
                 showDataView(true)
             } else {
                 showDataView(false)
@@ -100,8 +100,8 @@ class NewsListActivity : BaseActivity(), RecyclerItemListener {
 
     private fun initializeNewsList() {
         val layoutManager = LinearLayoutManager(this)
-        rv_news_list.layoutManager = layoutManager
-        rv_news_list.setHasFixedSize(true)
+        rv_images_list.layoutManager = layoutManager
+        rv_images_list.setHasFixedSize(true)
     }
 
     override fun onItemSelected(position: Int) =
@@ -110,7 +110,7 @@ class NewsListActivity : BaseActivity(), RecyclerItemListener {
     private fun getNews() {
         pb_loading.visibility = VISIBLE
         tv_no_data.visibility = GONE
-        rl_news_list.visibility = GONE
+        cl_images_list.visibility = GONE
         EspressoIdlingResource.increment()
         newsListViewModel.getImages()
     }
@@ -120,12 +120,12 @@ class NewsListActivity : BaseActivity(), RecyclerItemListener {
     }
 
     private fun showSearchError() {
-        rl_news_list.snackbar(R.string.search_error)
+        cl_images_list.snackbar(R.string.search_error)
     }
 
     private fun showDataView(show: Boolean) {
         tv_no_data.visibility = if (show) GONE else VISIBLE
-        rl_news_list.visibility = if (show) VISIBLE else GONE
+        cl_images_list.visibility = if (show) VISIBLE else GONE
         pb_loading.visibility = GONE
     }
 }

@@ -14,7 +14,7 @@ import com.task.ui.base.listeners.RecyclerItemListener
 class NewsAdapter(private val onItemClickListener: RecyclerItemListener, private val news: List<NewsItem>) : RecyclerView.Adapter<NewsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.news_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.product_image_item, parent, false)
         return NewsViewHolder(view)
     }
 

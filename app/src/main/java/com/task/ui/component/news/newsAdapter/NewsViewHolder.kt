@@ -7,7 +7,7 @@ import com.task.R
 import com.task.data.remote.dto.NewsItem
 import com.task.ui.base.listeners.RecyclerItemListener
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.news_item.*
+import kotlinx.android.synthetic.main.product_image_item.*
 
 /**
  * Created by AhmedEltaher on 5/12/2016.
