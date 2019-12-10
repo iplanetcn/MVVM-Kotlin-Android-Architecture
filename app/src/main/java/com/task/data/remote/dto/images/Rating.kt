@@ -1,11 +1,14 @@
 package com.task.data.remote.dto.images
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Rating(
-    val adRealityRate: Int?,
-    val count: Int?,
-    val link: String?,
-    val recommendationRate: Int?,
-    val score: Double?,
-    val scoreLocalized: String?
-)
+    var adRealityRate: Int?,
+    var count: Int?,
+    var link: String?,
+    var recommendationRate: Int?,
+    var score: Double?,
+    var scoreLocalized: String?
+): Parcelable

@@ -12,13 +12,11 @@ import javax.inject.Inject
  * Created by AhmedEltaher on 5/12/2016
  */
 
-class NewsListViewModel @Inject
+class ImageGalleryViewModel @Inject
 constructor(imagesUseCase: ImagesUseCase) : BaseViewModel() {
 
     private var imagesUseCase: ImagesUseCase = imagesUseCase
-    var imagedLiveData: MutableLiveData<Images> = MutableLiveData()
-//    var newsSearchFound: MutableLiveData<NewsItem> = MutableLiveData()
-//    var noSearchFound: MutableLiveData<Boolean> = MutableLiveData()
+    var imagesLiveData: MutableLiveData<Images> = MutableLiveData()
     var noInterNetConnection: MutableLiveData<Boolean> = MutableLiveData()
     var showError: MutableLiveData<Error> = MutableLiveData()
 
@@ -29,7 +27,7 @@ constructor(imagesUseCase: ImagesUseCase) : BaseViewModel() {
     private val callback = object : BaseCallback {
 
         override fun onSuccess(data: Any?) {
-            imagedLiveData.postValue(data as Images)
+            imagesLiveData.postValue(data as Images)
         }
 
         override fun onFail(error: Error) {
@@ -40,10 +38,5 @@ constructor(imagesUseCase: ImagesUseCase) : BaseViewModel() {
             }
 
         }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-
     }
 }

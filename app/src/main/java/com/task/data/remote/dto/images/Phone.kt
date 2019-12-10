@@ -1,8 +1,11 @@
 package com.task.data.remote.dto.images
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Phone(
-    val number: String?,
-    val type: String?,
-    val uri: String?
-)
+    var number: String?,
+    var type: String?,
+    var uri: String?
+): Parcelable

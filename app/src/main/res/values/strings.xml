@@ -14,4 +14,5 @@
     <string name="news_title_preview">this is the news title</string>
     <string name="task">eBay Classifieds Group Task</string>
     <string name="no_internet">Please check your internet connection</string>
+    <string name="wrong_message">some thing went wrong!</string>
 </resources>

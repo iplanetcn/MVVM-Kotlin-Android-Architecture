@@ -1,10 +1,13 @@
 package com.task.data.remote.dto.images
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class FinanceBudget(
-    val budgetStatus: String?,
-    val downPayment: Int?,
-    val loanDuration: Int?,
-    val localized: Localized?,
-    val netIncome: Int?
-)
+        var budgetStatus: String?,
+        var downPayment: Int?,
+        var loanDuration: Int?,
+        var localized: Localized?,
+        var netIncome: Int?
+) : Parcelable

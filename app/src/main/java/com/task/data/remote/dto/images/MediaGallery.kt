@@ -1,7 +1,10 @@
 package com.task.data.remote.dto.images
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class MediaGallery(
-    val additionalAds: Boolean?,
-    val slideShow: Boolean?
-)
+    var additionalAds: Boolean?,
+    var slideShow: Boolean?
+): Parcelable

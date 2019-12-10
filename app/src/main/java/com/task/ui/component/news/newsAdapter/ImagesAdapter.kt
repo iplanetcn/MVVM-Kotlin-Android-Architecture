@@ -4,22 +4,22 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.task.R
-import com.task.data.remote.dto.NewsItem
+import com.task.data.remote.dto.images.Image
 import com.task.ui.base.listeners.RecyclerItemListener
 
 /**
  * Created by AhmedEltaher on 5/12/2016.
  */
 
-class NewsAdapter(private val onItemClickListener: RecyclerItemListener, private val news: List<NewsItem>) : RecyclerView.Adapter<NewsViewHolder>() {
+class ImagesAdapter(private val onItemClickListener: RecyclerItemListener, private val news: List<Image?>) : RecyclerView.Adapter<ImageViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.product_image_item, parent, false)
-        return NewsViewHolder(view)
+        return ImageViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        holder.bind(position, news[position], onItemClickListener)
+    override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
+        holder.bind(position, news[position]!!, onItemClickListener)
     }
 
     override fun getItemCount(): Int {

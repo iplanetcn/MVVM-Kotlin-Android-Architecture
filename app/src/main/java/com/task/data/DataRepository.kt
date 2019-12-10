@@ -18,6 +18,6 @@ constructor(private val remoteRepository: RemoteRepository, private val localRep
     }
 
     override  fun requestImages(): Data? {
-        return remoteRepository.requestNews()
+        return remoteRepository.requestImages()
     }
 }

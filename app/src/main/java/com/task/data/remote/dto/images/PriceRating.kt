@@ -1,8 +1,11 @@
 package com.task.data.remote.dto.images
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class PriceRating(
-    val noRatingReason: String?,
-    val rating: String?,
-    val ratingLabel: String?
-)
+    var noRatingReason: String?,
+    var rating: String?,
+    var ratingLabel: String?
+): Parcelable

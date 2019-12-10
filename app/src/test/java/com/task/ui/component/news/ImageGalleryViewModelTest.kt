@@ -16,9 +16,9 @@ import org.junit.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(MockKExtension::class)
-class NewsListViewModelTest {
+class ImageGalleryViewModelTest {
     // Subject under test
-    private lateinit var newsListViewModel: NewsListViewModel
+    private lateinit var imageGalleryViewModel: ImageGalleryViewModel
 
     // Use a fake UseCase to be injected into the viewmodel
     private val newsUseCase: NewsUseCase = mockk()
@@ -39,7 +39,7 @@ class NewsListViewModelTest {
     fun setUp() {
         // Create class under test
         // We initialise the repository with no tasks
-        newsListViewModel = NewsListViewModel(newsUseCase)
+        imageGalleryViewModel = ImageGalleryViewModel(newsUseCase)
     }
 
     @Test
@@ -47,8 +47,8 @@ class NewsListViewModelTest {
         // Let's do a synchronous answer for the callback
         val newsModeltest = testModelsGenerator.generateNewsModel(newsTitle)
         //1- Mock - double test
-        (newsListViewModel).apply {
-            imagedLiveData.value = newsModeltest
+        (imageGalleryViewModel).apply {
+            imagesLiveData.value = newsModeltest
             newsSearchFound.value = testModelsGenerator.generateNewsItemModel(newsTitle)
             noSearchFound.value = false
         }
@@ -56,9 +56,9 @@ class NewsListViewModelTest {
         every { newsUseCase.getNews(callback = capture(callbackCapture)) } answers
                 { callbackCapture.captured.onSuccess(newsModeltest) }
         //2-Call
-        newsListViewModel.getImages()
+        imageGalleryViewModel.getImages()
         //3-verify
-        assert(newsModeltest == newsListViewModel.imagedLiveData.value)
+        assert(newsModeltest == imageGalleryViewModel.imagesLiveData.value)
     }
 
     @Test
@@ -71,11 +71,11 @@ class NewsListViewModelTest {
                 { callbackCapture.captured.onSuccess(newsModel) }
         every { newsUseCase.searchByTitle(newsModel.newsItems!!, newsTitle) } returns newsItem
         //2- Call
-        newsListViewModel.getImages()
-        newsListViewModel.onSearchClick(newsTitle)
+        imageGalleryViewModel.getImages()
+        imageGalleryViewModel.onSearchClick(newsTitle)
         //3- Verify
-        assert(newsListViewModel.noSearchFound.value == false)
-        assert(newsListViewModel.newsSearchFound.value == newsItem)
+        assert(imageGalleryViewModel.noSearchFound.value == false)
+        assert(imageGalleryViewModel.newsSearchFound.value == newsItem)
     }
 
     @Test
@@ -87,11 +87,11 @@ class NewsListViewModelTest {
                 { callbackCapture.captured.onSuccess(newsModelWithEmptyList) }
         every { newsUseCase.searchByTitle(newsModelWithEmptyList.newsItems!!, newsTitle) } returns null
         //2- Call
-        newsListViewModel.getImages()
-        newsListViewModel.onSearchClick(newsTitle)
+        imageGalleryViewModel.getImages()
+        imageGalleryViewModel.onSearchClick(newsTitle)
         //3- Verify
-        assert(newsListViewModel.noSearchFound.value == true)
-        assert(newsListViewModel.newsSearchFound.value == null)
+        assert(imageGalleryViewModel.noSearchFound.value == true)
+        assert(imageGalleryViewModel.newsSearchFound.value == null)
     }
 
     @Test
@@ -103,11 +103,11 @@ class NewsListViewModelTest {
                 { callbackCapture.captured.onSuccess(newsModel) }
         every { newsUseCase.searchByTitle(newsModel.newsItems!!, "*") } returns null
         //2- Call
-        newsListViewModel.getImages()
-        newsListViewModel.onSearchClick("*")
+        imageGalleryViewModel.getImages()
+        imageGalleryViewModel.onSearchClick("*")
         //3- Verify
-        assert(newsListViewModel.noSearchFound.value == true)
-        assert(newsListViewModel.newsSearchFound.value == null)
+        assert(imageGalleryViewModel.noSearchFound.value == true)
+        assert(imageGalleryViewModel.newsSearchFound.value == null)
     }
 
 }

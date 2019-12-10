@@ -5,20 +5,19 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.test.espresso.IdlingResource
 import com.task.R
-import com.task.data.remote.dto.NewsItem
+import com.task.data.remote.dto.images.Images
 import com.task.ui.ViewModelFactory
 import com.task.ui.base.BaseActivity
 import com.task.ui.base.listeners.RecyclerItemListener
 import com.task.ui.component.details.DetailsActivity
-import com.task.ui.component.news.newsAdapter.NewsAdapter
+import com.task.ui.component.news.newsAdapter.ImagesAdapter
 import com.task.utils.Constants
 import com.task.utils.EspressoIdlingResource
 import kotlinx.android.synthetic.main.home_activity.*
 import kotlinx.android.synthetic.main.toolbar.*
-import org.jetbrains.anko.design.snackbar
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.toast
 import javax.inject.Inject
@@ -27,9 +26,9 @@ import javax.inject.Inject
  * Created by AhmedEltaher on 5/12/2016
  */
 
-class NewsListActivity : BaseActivity(), RecyclerItemListener {
+class ImageGalleryActivity : BaseActivity(), RecyclerItemListener {
     @Inject
-    lateinit var newsListViewModel: NewsListViewModel
+    lateinit var imageGalleryViewModel: ImageGalleryViewModel
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
@@ -41,86 +40,70 @@ class NewsListActivity : BaseActivity(), RecyclerItemListener {
         get() = EspressoIdlingResource.idlingResource
 
     override fun initializeViewModel() {
-        newsListViewModel = viewModelFactory.create(NewsListViewModel::class.java)
+        imageGalleryViewModel = viewModelFactory.create(ImageGalleryViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ic_toolbar_refresh.setOnClickListener {
-            getNews()
-        }
-        btn_search.setOnClickListener {
-            if (!(et_search.text?.toString().isNullOrEmpty())) {
-                pb_loading.visibility = VISIBLE
-                newsListViewModel.onSearchClick(et_search.text?.toString()!!)
-            }
+            getImages()
         }
         initializeNewsList()
-        init(newsListViewModel)
+        init(imageGalleryViewModel)
     }
 
-    private fun init(viewModel: NewsListViewModel) {
+    private fun init(viewModel: ImageGalleryViewModel) {
         viewModel.noInterNetConnection.observe(this, Observer {
             if (it) {
                 tv_no_data.visibility = VISIBLE
                 cl_images_list.visibility = GONE
-                toast("Please check your Internet connection!")
+                toast(getString(R.string.no_internet))
                 pb_loading.visibility = GONE
             }
         })
 
         viewModel.showError.observe(this, Observer {
             showDataView(false)
-            toast("" + it?.description)
+            toast("${it?.description}")
         })
 
-        newsListViewModel.newsSearchFound.observe(this, Observer { newsItem ->
-            if (newsItem != null) {
-                navigateToDetailsScreen(newsItem)
-            } else {
-                showSearchError()
-            }
-            pb_loading.visibility = GONE
-        })
 
-        viewModel.imagedLiveData.observe(this, Observer { newsModel ->
+        viewModel.imagesLiveData.observe(this, Observer {
             // we don't need any null checks here for the adapter since LiveData guarantees that
-            if (!(newsModel?.newsItems.isNullOrEmpty())) {
-                val newsAdapter = NewsAdapter(this, newsModel?.newsItems!!)
+            if (!(it.images.isNullOrEmpty())) {
+                val newsAdapter = ImagesAdapter(this, it.images!!)
                 rv_images_list.adapter = newsAdapter
                 showDataView(true)
             } else {
                 showDataView(false)
-                toast("some thing went wrong!")
+                toast(getString(R.string.wrong_message))
             }
             EspressoIdlingResource.decrement()
         })
-        getNews()
+        getImages()
     }
 
     private fun initializeNewsList() {
-        val layoutManager = LinearLayoutManager(this)
+        val layoutManager = GridLayoutManager(this, 3)
         rv_images_list.layoutManager = layoutManager
-        rv_images_list.setHasFixedSize(true)
     }
 
     override fun onItemSelected(position: Int) =
-            this.navigateToDetailsScreen(news = newsListViewModel.imagedLiveData.value?.newsItems?.get(position)!!)
+            this.navigateToDetailsScreen(images = imageGalleryViewModel.imagesLiveData.value!!, index = position)
 
-    private fun getNews() {
+    private fun getImages() {
         pb_loading.visibility = VISIBLE
         tv_no_data.visibility = GONE
         cl_images_list.visibility = GONE
         EspressoIdlingResource.increment()
-        newsListViewModel.getImages()
+        imageGalleryViewModel.getImages()
     }
 
-    private fun navigateToDetailsScreen(news: NewsItem) {
-        startActivity(intentFor<DetailsActivity>(Constants.NEWS_ITEM_KEY to news))
-    }
-
-    private fun showSearchError() {
-        cl_images_list.snackbar(R.string.search_error)
+    private fun navigateToDetailsScreen(images: Images, index: Int) {
+        startActivity(intentFor<DetailsActivity>(
+                Constants.IMAGE_ITEM_KEY to images,
+                Constants.IMAGE_INDEX_KEY to index
+        ))
     }
 
     private fun showDataView(show: Boolean) {

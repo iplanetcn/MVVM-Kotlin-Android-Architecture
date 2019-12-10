@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/iv_news_main_Image"
+        android:id="@+id/iv_product_full_Image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
