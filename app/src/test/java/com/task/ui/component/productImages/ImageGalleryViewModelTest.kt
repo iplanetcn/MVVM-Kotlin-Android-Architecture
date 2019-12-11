@@ -1,9 +1,7 @@
-package com.task.ui.component.news
+package com.task.ui.component.productImages
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.task.ui.base.listeners.BaseCallback
-import com.task.ui.component.productImages.ImageGalleryViewModel
-import com.task.ui.component.productImages.MainCoroutineRule
 import com.task.usecase.images.ImagesUseCase
 import io.mockk.CapturingSlot
 import io.mockk.every

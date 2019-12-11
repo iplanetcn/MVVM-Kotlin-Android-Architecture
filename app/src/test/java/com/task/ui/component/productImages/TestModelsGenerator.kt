@@ -1,4 +1,4 @@
-package com.task.ui.component.news
+package com.task.ui.component.productImages
 
 import com.google.gson.Gson
 import com.task.data.remote.dto.images.Image
@@ -14,13 +14,13 @@ class TestModelsGenerator {
     lateinit var images: Images
 
     fun initImagesModel() {
-        val gson: Gson = Gson()
-        var jsonString = getJson("ProductInfo.json")
+        val gson = Gson()
+        val jsonString = getJson("ProductInfo.json")
         images = gson.fromJson(jsonString, Images::class.java)
     }
 
     fun generateImagesModelWithEmptyList(): Images {
-        var imagesModel: Images = spyk()
+        val imagesModel: Images = spyk()
         val images = mutableListOf<Image>()
         imagesModel.images = images
         return imagesModel
@@ -35,7 +35,7 @@ class TestModelsGenerator {
      * @return json : JSON from file at given path
      */
 
-    fun getJson(path: String): String {
+    private fun getJson(path: String): String {
         // Load the JSON response
         val uri = this.javaClass.classLoader?.getResource(path)
         val file = File(uri?.path)

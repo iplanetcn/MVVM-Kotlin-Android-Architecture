@@ -15,7 +15,7 @@ import javax.inject.Inject
 class ImageGalleryViewModel @Inject
 constructor(imagesUseCase: ImagesUseCase) : BaseViewModel() {
 
-    private var imagesUseCase: ImagesUseCase = imagesUseCase
+    private var imagesUseCase = imagesUseCase
     var imagesLiveData: MutableLiveData<Images> = MutableLiveData()
     var noInterNetConnection: MutableLiveData<Boolean> = MutableLiveData()
     var showError: MutableLiveData<Error> = MutableLiveData()

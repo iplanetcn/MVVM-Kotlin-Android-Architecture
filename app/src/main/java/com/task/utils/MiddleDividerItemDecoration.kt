@@ -83,7 +83,7 @@ class MiddleDividerItemDecoration
      *
      * @param orientation [.HORIZONTAL] or [.VERTICAL]
      */
-    fun setOrientation(orientation: Int) {
+    private fun setOrientation(orientation: Int) {
         if (orientation != HORIZONTAL && orientation != VERTICAL && orientation != ALL) {
             throw IllegalArgumentException(
                     "Invalid orientation. It should be either HORIZONTAL or VERTICAL"
@@ -206,12 +206,12 @@ class MiddleDividerItemDecoration
     }
 
     companion object {
-        val HORIZONTAL = LinearLayout.HORIZONTAL
-        val VERTICAL = LinearLayout.VERTICAL
+        const val HORIZONTAL = LinearLayout.HORIZONTAL
+        const val VERTICAL = LinearLayout.VERTICAL
         //mainly used for GridLayoutManager
-        val ALL = 2
+        const val ALL = 2
 
-        private val TAG = "DividerItem"
+        private const val TAG = "DividerItem"
         private val ATTRS = intArrayOf(android.R.attr.listDivider)
     }
 }

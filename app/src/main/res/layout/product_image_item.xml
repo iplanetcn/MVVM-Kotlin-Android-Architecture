@@ -5,15 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-<!--    app:layout_constraintDimensionRatio="1:1"-->
-<!--    android:scaleType="fitXY"-->
     <ImageView
         android:id="@+id/iv_product_image"
         app:layout_constraintDimensionRatio="1:1"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:paddingVertical="2dp"
-        android:paddingHorizontal="1dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:paddingLeft="1dp"
+        android:paddingRight="1dp"
+        android:paddingStart="1dp"
+        android:paddingEnd="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

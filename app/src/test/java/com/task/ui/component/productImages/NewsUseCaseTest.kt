@@ -1,11 +1,10 @@
-package com.task.ui.component.news
+package com.task.ui.component.productImages
 
 import com.task.data.DataRepository
 import com.task.data.remote.Data
 import com.task.data.remote.Error
 import com.task.data.remote.dto.images.Images
 import com.task.ui.base.listeners.BaseCallback
-import com.task.ui.component.productImages.MainCoroutineRule
 import com.task.usecase.images.ImagesUseCase
 import io.mockk.coEvery
 import io.mockk.coVerify

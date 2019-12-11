@@ -1,4 +1,4 @@
-package com.task.ui.component.news
+package com.task.ui.component.productImages
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso
@@ -11,9 +11,7 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
-import com.task.App
 import com.task.R
-import com.task.ui.component.productImages.ImageGalleryActivity
 import org.hamcrest.Matchers
 import org.junit.After
 import org.junit.Before
