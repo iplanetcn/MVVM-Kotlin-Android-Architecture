@@ -28,7 +28,7 @@ class DetailsActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.initIntentData(intent.getParcelableExtra(Constants.IMAGE_ITEM_KEY), intent.getIntExtra(Constants.IMAGE_INDEX_KEY, 0))
+        viewModel.initIntentData(intent.getParcelableExtra(Constants.IMAGE_ITEM_KEY))
         viewModel.getImage()
         viewModel.uri.observe(this, Observer { bindImage(it) })
     }

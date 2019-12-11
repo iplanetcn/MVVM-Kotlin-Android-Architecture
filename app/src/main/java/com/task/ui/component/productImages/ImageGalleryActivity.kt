@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.test.espresso.IdlingResource
 import com.task.R
-import com.task.data.remote.dto.images.Images
+import com.task.data.remote.dto.images.Image
 import com.task.ui.ViewModelFactory
 import com.task.ui.base.BaseActivity
 import com.task.ui.base.listeners.RecyclerItemListener
@@ -86,17 +86,20 @@ class ImageGalleryActivity : BaseActivity(), RecyclerItemListener {
     }
 
     private fun initializeNewsList() {
-//        val layoutManager = GridLayoutManager(this, 3)
-//        rv_images_list.layoutManager = layoutManager
-
         val itemDecoration = MiddleDividerItemDecoration(this, MiddleDividerItemDecoration.ALL)
         itemDecoration.setDividerColor(ContextCompat.getColor(this, android.R.color.holo_red_dark))
         rv_images_list.addItemDecoration(itemDecoration)
         rv_images_list.layoutManager = GridLayoutManager(this, 3)
     }
 
-    override fun onItemSelected(position: Int) =
-            this.navigateToDetailsScreen(images = imageGalleryViewModel.imagesLiveData.value!!, index = position)
+    override fun onItemSelected(position: Int) {
+        val image = imageGalleryViewModel.imagesLiveData.value?.images?.get(position)
+       if(image!=null){
+           image.let {this.navigateToDetailsScreen(it)}
+       }else{
+           toast(getString(R.string.cant_retrieve_image))
+       }
+    }
 
     private fun getImages() {
         pb_loading.visibility = VISIBLE
@@ -106,10 +109,9 @@ class ImageGalleryActivity : BaseActivity(), RecyclerItemListener {
         imageGalleryViewModel.getImages()
     }
 
-    private fun navigateToDetailsScreen(images: Images, index: Int) {
+    private fun navigateToDetailsScreen(image: Image) {
         startActivity(intentFor<DetailsActivity>(
-                Constants.IMAGE_ITEM_KEY to images,
-                Constants.IMAGE_INDEX_KEY to index
+                Constants.IMAGE_ITEM_KEY to image
         ))
     }
 
