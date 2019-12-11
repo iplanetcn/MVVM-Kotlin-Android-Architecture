@@ -5,7 +5,7 @@ import android.os.Handler
 import com.task.R
 import com.task.ui.ViewModelFactory
 import com.task.ui.base.BaseActivity
-import com.task.ui.component.news.ImageGalleryActivity
+import com.task.ui.component.productImages.ImageGalleryActivity
 import com.task.utils.Constants
 import org.jetbrains.anko.startActivity
 import javax.inject.Inject

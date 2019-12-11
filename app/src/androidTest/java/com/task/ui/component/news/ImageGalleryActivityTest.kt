@@ -13,6 +13,7 @@ import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import com.task.App
 import com.task.R
+import com.task.ui.component.productImages.ImageGalleryActivity
 import org.hamcrest.Matchers
 import org.junit.After
 import org.junit.Before
@@ -23,7 +24,6 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 @LargeTest
 class ImageGalleryActivityTest {
-    private val testSearchString = "the"
     @get:Rule
     var mActivityTestRule = ActivityTestRule(ImageGalleryActivity::class.java)
     private var mIdlingResource: IdlingResource? = null
@@ -33,30 +33,17 @@ class ImageGalleryActivityTest {
         IdlingRegistry.getInstance().register(mIdlingResource)
     }
 
-    @Test
-    fun testSearch() {
-//        val searchEditText = Espresso.onView(ViewMatchers.withId(R.id.et_search))
-//        searchEditText.perform(ViewActions.click())
-//        searchEditText.perform(ViewActions.typeText(testSearchString), ViewActions.pressImeActionButton())
-//        Espresso.onView(ViewMatchers.withId(R.id.btn_search)).perform(ViewActions.click())
-//        Espresso.onView(ViewMatchers.withId(R.id.tv_title)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-//        Espresso.onView(ViewMatchers.withId(R.id.tv_description)).perform(ViewActions.scrollTo())
-//        Espresso.onView(ViewMatchers.withId(R.id.tv_description)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-//        Espresso.pressBack()
-//        searchEditText.check(ViewAssertions.matches(ViewMatchers.withText(testSearchString)))
-//        Espresso.onView(ViewMatchers.withId(R.id.rv_images_list)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-    }
 
     @Test
     fun testScroll() {
         Espresso.onView(ViewMatchers.withId(R.id.rv_images_list))
                 .perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, ViewActions.click()))
-//        Espresso.onView(ViewMatchers.withId(R.id.tv_title)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-//        Espresso.onView(ViewMatchers.withId(R.id.tv_description)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(ViewMatchers.withId(R.id.iv_product_full_Image)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 
     @Test
-    fun testRefresh() { //Before refresh there is a list .
+    fun testRefresh() {
+        //Before refresh there is a list .
         Espresso.onView(ViewMatchers.withId(R.id.rv_images_list)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
         Espresso.onView(ViewMatchers.withId(R.id.pb_loading)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())))
         // do refresh .
@@ -72,26 +59,10 @@ class ImageGalleryActivityTest {
         Espresso.onView(ViewMatchers.withId(R.id.pb_loading)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())))
     }
 
-    @Test
-    fun searchIsActive() {
-//        Espresso.onView(ViewMatchers.withId(R.id.rl_search)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-//        Espresso.onView(ViewMatchers.withId(R.id.et_search)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-//        Espresso.onView(ViewMatchers.withId(R.id.btn_search)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-    }
-
     @After
     fun unregisterIdlingResource() {
         if (mIdlingResource != null) {
             IdlingRegistry.getInstance().unregister()
         }
-    }
-
-    fun testEmptySearch() {
-        val testSearchString = ""
-//        val searchEditText = Espresso.onView(ViewMatchers.withId(R.id.et_search))
-//        searchEditText.perform(ViewActions.click())
-//        searchEditText.perform(ViewActions.typeText(testSearchString), ViewActions.pressImeActionButton())
-//        Espresso.onView(ViewMatchers.withId(R.id.btn_search)).perform(ViewActions.click())
-        Espresso.onView(Matchers.allOf(ViewMatchers.withId(R.id.snackbar_text), ViewMatchers.withText(App.context.getString(R.string.search_error)))).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 }

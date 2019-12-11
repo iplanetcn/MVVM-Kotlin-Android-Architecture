@@ -1,0 +1,259 @@
+{
+    "attributes": [
+        {
+            "label": "Vehicle condition",
+            "tag": "damageCondition",
+            "value": "Accident-free"
+        },
+        {
+            "label": "Category",
+            "tag": "category",
+            "value": "Sports Car / Coupe"
+        },
+        {
+            "label": "Mileage",
+            "tag": "mileage",
+            "value": "41.274 km"
+        },
+        {
+            "label": "Cubic Capacity",
+            "tag": "cubicCapacity",
+            "value": "5.998 ccm"
+        },
+        {
+            "label": "Power",
+            "tag": "power",
+            "value": "485 kW (659 Hp)"
+        },
+        {
+            "label": "Fuel",
+            "tag": "fuel",
+            "value": "Petrol"
+        },
+        {
+            "label": "Fuel Consumption",
+            "tag": "envkv.consumption",
+            "value": [
+                "ca. 23,0 l/100km (combined)",
+                "ca. 36,3 l/100km (urban)",
+                "ca. 15,2 l/100km (extra-urban)"
+            ]
+        },
+        {
+            "label": "CO₂ Emissions",
+            "tag": "envkv.emission",
+            "value": "ca. 545 g/km (combined)"
+        },
+        {
+            "label": "Number of Seats",
+            "tag": "numSeats",
+            "value": "2"
+        },
+        {
+            "label": "Door Count",
+            "tag": "doorCount",
+            "value": "2/3"
+        },
+        {
+            "label": "Gearbox",
+            "tag": "transmission",
+            "value": "Automatic transmission"
+        },
+        {
+            "label": "Emission Class",
+            "tag": "emissionClass",
+            "value": "Euro3"
+        },
+        {
+            "label": "Emissions Sticker",
+            "tag": "emissionsSticker",
+            "value": "4 (Green)"
+        },
+        {
+            "label": "First Registration",
+            "tag": "firstRegistration",
+            "value": "03/2004"
+        },
+        {
+            "label": "Number of Vehicle Owners",
+            "tag": "numberOfPreviousOwners",
+            "value": "1"
+        },
+        {
+            "label": "Climatisation",
+            "tag": "climatisation",
+            "value": "A/C (man.)"
+        },
+        {
+            "label": "Colour",
+            "tag": "color",
+            "value": "Red"
+        },
+        {
+            "label": "Interior Design",
+            "tag": "interior",
+            "value": "Full leather, Black"
+        }
+    ],
+    "customDimensions": {
+        "10": "compact",
+        "47": "NA_NA_NA_NA_NA_NA",
+        "126": "NA_NA_15_NA_NA_languages_NA"
+    },
+    "mediaGallery": {
+        "slideShow": false,
+        "additionalAds": true
+    },
+    "financeBudget": {
+        "netIncome": 3200,
+        "downPayment": 10000,
+        "loanDuration": 24,
+        "budgetStatus": "PERSONALIZED-INCOME",
+        "localized": {
+            "netIncome": "€3,200",
+            "downPayment": "€10,000"
+        }
+    },
+    "htmlDescription": "<hr><b>Wir  bitten Sie für eine Besichtigung der Fahrzeuge einen Termin zu Vereinbaren!!!</b><br><b>Therefore, we ask that you call in advance before you visit our place!!!</b><br><hr>5 Tage Kurzzeitkennzeichen oder Zollkennzeichen.<br>Gebrauchtwagengarantie gegen Aufpreis möglich.<br>Bestellung ihres Wunsch Fahrzeuges mit Top Preisgarantie neu oder gebraucht.<br>Inzahlungnahme oder Kommissionsverkauf Ires Fahrzeuges.<br>Finanzierung über unsere Partnerbank.<br>Lieferservice, abholung vom Bahnhof oder Flughafen.<br>Besichtigung nach Termin Vereinbarung!!!<br>Telefonischer Kontakt erwünscht!!!<br><hr>",
+    "makeKey": "Ferrari",
+    "modelKey": "Enzo Ferrari",
+    "isNew": false,
+    "isDamageCase": false,
+    "isFinancingFeature": false,
+    "readyToDrive": true,
+    "isConditionNew": false,
+    "contact": {
+        "type": "Dealer",
+        "country": "DE",
+        "enumType": "DEALER",
+        "name": "ALE EXCLUSIVE",
+        "address1": "Atterseestr. 6",
+        "address2": "DE-81241 München",
+        "phones": [
+            {
+                "type": "PHONE1",
+                "number": "+49 (0)89 4132732954",
+                "uri": "tel:+49894132732954"
+            }
+        ],
+        "latLong": {
+            "lon": 11.4752532,
+            "lat": 48.1428419
+        },
+        "languages": "Deutsch, English",
+        "withMobileSince": "With mobile.de since 3 Sep 2010",
+        "canSendCcMail": true,
+        "rating": {
+            "count": 8,
+            "score": 4.4,
+            "scoreLocalized": "4,4",
+            "link": "https://www.mobile.de/bewertungen/AUTOLANDEPLER?lang=en",
+            "recommendationRate": 83,
+            "adRealityRate": 100
+        },
+        "homepageUrl": "https://home.mobile.de/home/redirect.html?customerId=4575234"
+    },
+    "created": 1482083570,
+    "modified": 1567627803,
+    "renewed": 1482083570,
+    "version": 77,
+    "makeId": 8600,
+    "modelId": 26,
+    "links": [
+        {
+            "rel": "similar-ads",
+            "href": "/svc/recommendations/237089773"
+        }
+    ],
+    "images": [
+        {
+            "uri": "i.ebayimg.com/00/s/MTE5MlgxNjAw/z/1S8AAOSwUYNZ5j3W/$",
+            "set": "fe4cfedffdffffffff"
+        },
+        {
+            "uri": "i.ebayimg.com/00/s/MTEwM1gxNjAw/z/F1EAAOSwa~BYVs1H/$",
+            "set": "fe4cfedffdffffffff"
+        },
+        {
+            "uri": "i.ebayimg.com/00/s/MTIwMFgxNjAw/z/xIcAAOSw-0xYVs0-/$",
+            "set": "fe4cfedffdffffffff"
+        },
+        {
+            "uri": "i.ebayimg.com/00/s/OTAxWDE2MDA=/z/8WcAAOSwEzxYVs0z/$",
+            "set": "fe4cfedffdffffffff"
+        },
+        {
+            "uri": "i.ebayimg.com/00/s/MTA5M1gxNjAw/z/5YgAAOSwJ7RYVs04/$",
+            "set": "fe4cfedffdffffffff"
+        },
+        {
+            "uri": "i.ebayimg.com/00/s/ODkzWDE2MDA=/z/Ml4AAOSwA3dYVs0v/$",
+            "set": "fe4cfedffdffffffff"
+        },
+        {
+            "uri": "i.ebayimg.com/00/s/MTIwMFgxNjAw/z/P2wAAOSwo4pYVs1b/$",
+            "set": "fe4cfedffdffffffff"
+        },
+        {
+            "uri": "i.ebayimg.com/00/s/ODM0WDE2MDA=/z/gGYAAOSw241YVs2M/$",
+            "set": "fe4cfedffdffffffff"
+        },
+        {
+            "uri": "i.ebayimg.com/00/s/MTA4N1gxNjAw/z/dbgAAOSwImRYVs1W/$",
+            "set": "fe4cfedffdffffffff"
+        },
+        {
+            "uri": "i.ebayimg.com/00/s/MTI4M1gxNjAw/z/zB4AAOSw-0xYVs2H/$",
+            "set": "fe4cfedffdffffffff"
+        },
+        {
+            "uri": "i.ebayimg.com/00/s/MTA3OFgxNjAw/z/mc8AAOSw241YVs5x/$",
+            "set": "fe4cfedffdffffffff"
+        },
+        {
+            "uri": "i.ebayimg.com/00/s/MTIwMFgxNjAw/z/59oAAOSw5cNYVs1g/$",
+            "set": "fe4cfedffdffffffff"
+        },
+        {
+            "uri": "i.ebayimg.com/00/s/MTIwMFgxNjAw/z/6JMAAOSw5cNYVs1l/$",
+            "set": "fe4cfedffdffffffff"
+        },
+        {
+            "uri": "i.ebayimg.com/00/s/MTIwMFgxNjAw/z/MZwAAOSwa~BYVs5F/$",
+            "set": "fe4cfedffdffffffff"
+        },
+        {
+            "uri": "i.ebayimg.com/00/s/MTIwMFgxNjAw/z/ZCoAAOSwo4pYVs6U/$",
+            "set": "fe4cfedffdffffffff"
+        }
+    ],
+    "features": [
+        "ABS",
+        "Alloy wheels",
+        "Electric side mirror",
+        "Full Service History",
+        "Leather seats",
+        "Sport seats",
+        "Traction control",
+        "Xenon headlights"
+    ],
+    "sellerId": 4575234,
+    "priceRating": {
+        "rating": "NO_RATING",
+        "ratingLabel": "No rating",
+        "noRatingReason": "mobile.de only rates the price of a vehicle if a sufficient volume of comparative data is available. If not, because too little comparable data has been advertised in the past, mobile.de is unable to make a realistic price rating."
+    },
+    "segment": "Car",
+    "title": "Ferrari Enzo Ferrari",
+    "url": "https://suchen.mobile.de/auto-inserat/ferrari-enzo-ferrari-m%C3%BCnchen/237089773.html",
+    "vc": "Car",
+    "id": 237089773,
+    "price": {
+        "grs": {
+            "amount": 3880000,
+            "currency": "EUR",
+            "localized": "€3,880,000"
+        },
+        "type": "FIXED"
+    }
+}

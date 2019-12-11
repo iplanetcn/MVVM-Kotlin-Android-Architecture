@@ -1,9 +1,10 @@
-package com.task.ui.component.news
+package com.task.ui.component.productImages
 
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.annotation.VisibleForTesting
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.test.espresso.IdlingResource
@@ -13,9 +14,10 @@ import com.task.ui.ViewModelFactory
 import com.task.ui.base.BaseActivity
 import com.task.ui.base.listeners.RecyclerItemListener
 import com.task.ui.component.details.DetailsActivity
-import com.task.ui.component.news.newsAdapter.ImagesAdapter
+import com.task.ui.component.productImages.newsAdapter.ImagesAdapter
 import com.task.utils.Constants
 import com.task.utils.EspressoIdlingResource
+import com.task.utils.MiddleDividerItemDecoration
 import kotlinx.android.synthetic.main.home_activity.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.jetbrains.anko.intentFor
@@ -71,8 +73,8 @@ class ImageGalleryActivity : BaseActivity(), RecyclerItemListener {
         viewModel.imagesLiveData.observe(this, Observer {
             // we don't need any null checks here for the adapter since LiveData guarantees that
             if (!(it.images.isNullOrEmpty())) {
-                val newsAdapter = ImagesAdapter(this, it.images!!)
-                rv_images_list.adapter = newsAdapter
+                val imagesAdapter = ImagesAdapter(this, it.images!!)
+                rv_images_list.adapter = imagesAdapter
                 showDataView(true)
             } else {
                 showDataView(false)
@@ -84,8 +86,13 @@ class ImageGalleryActivity : BaseActivity(), RecyclerItemListener {
     }
 
     private fun initializeNewsList() {
-        val layoutManager = GridLayoutManager(this, 3)
-        rv_images_list.layoutManager = layoutManager
+//        val layoutManager = GridLayoutManager(this, 3)
+//        rv_images_list.layoutManager = layoutManager
+
+        val itemDecoration = MiddleDividerItemDecoration(this, MiddleDividerItemDecoration.ALL)
+        itemDecoration.setDividerColor(ContextCompat.getColor(this, android.R.color.holo_red_dark))
+        rv_images_list.addItemDecoration(itemDecoration)
+        rv_images_list.layoutManager = GridLayoutManager(this, 3)
     }
 
     override fun onItemSelected(position: Int) =

@@ -1,4 +1,4 @@
-package com.task.ui.component.news.newsAdapter
+package com.task.ui.component.productImages.newsAdapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

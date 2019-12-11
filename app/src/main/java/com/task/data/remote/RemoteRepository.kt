@@ -3,7 +3,6 @@ package com.task.data.remote
 import com.task.App
 import com.task.data.remote.Error.Companion.NETWORK_ERROR
 import com.task.data.remote.Error.Companion.NO_INTERNET_CONNECTION
-import com.task.data.remote.service.NewsService
 import com.task.data.remote.service.ProductImages
 import com.task.utils.Constants
 import com.task.utils.Constants.INSTANCE.ERROR_UNDEFINED
@@ -18,23 +17,13 @@ import javax.inject.Inject
  */
 
 class RemoteRepository @Inject
-constructor(private val serviceGenerator: ServiceGenerator) : RemoteSource {
-
-    override  fun requestNews(): Data? {
-        return if (!isConnected(App.context)) {
-            Data(Error(code = -1, description = NETWORK_ERROR))
-        } else {
-            val newsService = serviceGenerator.createService(NewsService::class.java, Constants.BASE_URL)
-            processCall(newsService.fetchNews(), false)
-        }
-    }
-
-    override fun requestImages(): Data? {
+constructor(private val serviceGenerator: ServiceGenerator) {
+    fun requestImages(): Data? {
         return if (!isConnected(App.context)) {
             Data(Error(code = NO_INTERNET_CONNECTION, description = NETWORK_ERROR))
         } else {
-            val newsService = serviceGenerator.createService(ProductImages::class.java, Constants.BASE_URL)
-            processCall(newsService.fetchImages(), false)
+            val productImagesService = serviceGenerator.createService(ProductImages::class.java, Constants.BASE_URL)
+            processCall(productImagesService.fetchImages(), false)
         }
     }
 

@@ -1,4 +1,4 @@
-package com.task.ui.component.news.newsAdapter
+package com.task.ui.component.productImages.newsAdapter
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
@@ -19,7 +19,7 @@ class ImageViewHolder(override val containerView: View) : RecyclerView.ViewHolde
     fun bind(position: Int, image: Image, recyclerItemListener: RecyclerItemListener) {
         image.uri?.let {
             val url = "${Constants.PREFFIX_URI_IMAGE}$it${Constants.SUFFIX_THUMBNAIL_IMAGE}"
-            Picasso.get().load(url).placeholder(R.drawable.news).error(R.drawable.car_icon).into(iv_product_image)
+            Picasso.get().load(url).placeholder(R.drawable.car_icon).error(R.drawable.car_icon).fit().centerCrop().into(iv_product_image)
         }
         cl_image_item.setOnClickListener { recyclerItemListener.onItemSelected(position) }
     }

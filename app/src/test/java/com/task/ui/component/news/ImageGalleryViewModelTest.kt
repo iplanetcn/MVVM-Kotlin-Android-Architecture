@@ -1,9 +1,10 @@
 package com.task.ui.component.news
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.task.data.remote.dto.NewsModel
 import com.task.ui.base.listeners.BaseCallback
-import com.task.usecase.NewsUseCase
+import com.task.ui.component.productImages.ImageGalleryViewModel
+import com.task.ui.component.productImages.MainCoroutineRule
+import com.task.usecase.images.ImagesUseCase
 import io.mockk.CapturingSlot
 import io.mockk.every
 import io.mockk.junit5.MockKExtension
@@ -21,7 +22,7 @@ class ImageGalleryViewModelTest {
     private lateinit var imageGalleryViewModel: ImageGalleryViewModel
 
     // Use a fake UseCase to be injected into the viewmodel
-    private val newsUseCase: NewsUseCase = mockk()
+    private val imagesUseCase: ImagesUseCase = mockk()
 
     // Set the main coroutines dispatcher for unit testing.
     @ExperimentalCoroutinesApi
@@ -32,82 +33,30 @@ class ImageGalleryViewModelTest {
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
 
-    private val newsTitle = "this is test"
     private val testModelsGenerator: TestModelsGenerator = TestModelsGenerator()
 
     @Before
     fun setUp() {
         // Create class under test
         // We initialise the repository with no tasks
-        imageGalleryViewModel = ImageGalleryViewModel(newsUseCase)
+        testModelsGenerator.initImagesModel()
+        imageGalleryViewModel = ImageGalleryViewModel(imagesUseCase)
     }
 
     @Test
-    fun getNewsList() {
+    fun getImagesList() {
         // Let's do a synchronous answer for the callback
-        val newsModeltest = testModelsGenerator.generateNewsModel(newsTitle)
-        //1- Mock - double test
+        val imagesModeltest = testModelsGenerator.images
+        //1- Mock - test
         (imageGalleryViewModel).apply {
-            imagesLiveData.value = newsModeltest
-            newsSearchFound.value = testModelsGenerator.generateNewsItemModel(newsTitle)
-            noSearchFound.value = false
+            imagesLiveData.value = imagesModeltest
         }
         val callbackCapture: CapturingSlot<BaseCallback> = slot()
-        every { newsUseCase.getNews(callback = capture(callbackCapture)) } answers
-                { callbackCapture.captured.onSuccess(newsModeltest) }
+        every { imagesUseCase.getImages(callback = capture(callbackCapture)) } answers
+                { callbackCapture.captured.onSuccess(imagesModeltest) }
         //2-Call
         imageGalleryViewModel.getImages()
         //3-verify
-        assert(newsModeltest == imageGalleryViewModel.imagesLiveData.value)
+        assert(imagesModeltest == imageGalleryViewModel.imagesLiveData.value)
     }
-
-    @Test
-    fun testSearchSuccess() {
-        val newsItem = testModelsGenerator.generateNewsItemModel(newsTitle)
-        val newsModel = testModelsGenerator.generateNewsModel(newsTitle)
-        //1- Mock
-        val callbackCapture: CapturingSlot<BaseCallback> = slot()
-        every { newsUseCase.getNews(callback = capture(callbackCapture)) } answers
-                { callbackCapture.captured.onSuccess(newsModel) }
-        every { newsUseCase.searchByTitle(newsModel.newsItems!!, newsTitle) } returns newsItem
-        //2- Call
-        imageGalleryViewModel.getImages()
-        imageGalleryViewModel.onSearchClick(newsTitle)
-        //3- Verify
-        assert(imageGalleryViewModel.noSearchFound.value == false)
-        assert(imageGalleryViewModel.newsSearchFound.value == newsItem)
-    }
-
-    @Test
-    fun testSearchFailedWhileEmptyList() {
-        val newsModelWithEmptyList: NewsModel = testModelsGenerator.generateNewsModelWithEmptyList("stup")
-        //1- Mock
-        val callbackCapture: CapturingSlot<BaseCallback> = slot()
-        every { newsUseCase.getNews(callback = capture(callbackCapture)) } answers
-                { callbackCapture.captured.onSuccess(newsModelWithEmptyList) }
-        every { newsUseCase.searchByTitle(newsModelWithEmptyList.newsItems!!, newsTitle) } returns null
-        //2- Call
-        imageGalleryViewModel.getImages()
-        imageGalleryViewModel.onSearchClick(newsTitle)
-        //3- Verify
-        assert(imageGalleryViewModel.noSearchFound.value == true)
-        assert(imageGalleryViewModel.newsSearchFound.value == null)
-    }
-
-    @Test
-    fun testSearchFailedWhenNothingMatches() {
-        val newsModel = testModelsGenerator.generateNewsModel(newsTitle)
-        //1- Mock
-        val callbackCapture: CapturingSlot<BaseCallback> = slot()
-        every { newsUseCase.getNews(callback = capture(callbackCapture)) } answers
-                { callbackCapture.captured.onSuccess(newsModel) }
-        every { newsUseCase.searchByTitle(newsModel.newsItems!!, "*") } returns null
-        //2- Call
-        imageGalleryViewModel.getImages()
-        imageGalleryViewModel.onSearchClick("*")
-        //3- Verify
-        assert(imageGalleryViewModel.noSearchFound.value == true)
-        assert(imageGalleryViewModel.newsSearchFound.value == null)
-    }
-
 }

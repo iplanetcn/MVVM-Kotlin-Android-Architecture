@@ -3,9 +3,10 @@ package com.task.ui.component.news
 import com.task.data.DataRepository
 import com.task.data.remote.Data
 import com.task.data.remote.Error
-import com.task.data.remote.dto.NewsModel
+import com.task.data.remote.dto.images.Images
 import com.task.ui.base.listeners.BaseCallback
-import com.task.usecase.NewsUseCase
+import com.task.ui.component.productImages.MainCoroutineRule
+import com.task.usecase.images.ImagesUseCase
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -13,8 +14,6 @@ import io.mockk.spyk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Rule
 import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -27,9 +26,9 @@ class NewsUseCaseTest {
     private var dataRepository: DataRepository? = null
     private var callback: BaseCallback? = spyk()
 
-    private lateinit var newsUseCase: NewsUseCase
+    private lateinit var imagesUseCase: ImagesUseCase
     private val testModelsGenerator: TestModelsGenerator = TestModelsGenerator()
-    private lateinit var newsModel: NewsModel
+    private lateinit var imagesModel: Images
 
     // Set the main coroutines dispatcher for unit testing.
     @ExperimentalCoroutinesApi
@@ -38,43 +37,28 @@ class NewsUseCaseTest {
 
     @BeforeEach
     fun setUp() {
+        testModelsGenerator.initImagesModel()
         dataRepository = DataRepository(mockk(), mockk())
-        newsUseCase = NewsUseCase(dataRepository!!, mainCoroutineRule.coroutineContext)
+        imagesUseCase = ImagesUseCase(dataRepository!!, mainCoroutineRule.coroutineContext)
     }
 
     @Test
-    fun testGetNewsSuccessful() {
-        newsModel = testModelsGenerator.generateNewsModel("Stup")
-        val serviceResponse = Data(code = Error.SUCCESS_CODE, data = newsModel)
-        coEvery { dataRepository?.requestNews() } returns serviceResponse
-        newsUseCase.getNews(callback!!)
+    fun testGetProductInfoSuccess() {
+        imagesModel = testModelsGenerator.images
+        val serviceResponse = Data(code = Error.SUCCESS_CODE, data = imagesModel)
+        coEvery { dataRepository?.requestImages() } returns serviceResponse
+        imagesUseCase.getImages(callback!!)
         coVerify(exactly = 1, verifyBlock = { callback?.onSuccess(any()) })
         coVerify(exactly = 0, verifyBlock = { callback?.onFail(any()) })
     }
 
     @Test
-    fun testGetNewsFail() {
+    fun testGetProductInfoFail() {
         val serviceResponse = Data(code = Error.ERROR_CODE, data = null)
-        coEvery { dataRepository?.requestNews() } returns serviceResponse
-        newsUseCase.getNews(callback!!)
+        coEvery { dataRepository?.requestImages() } returns serviceResponse
+        imagesUseCase.getImages(callback!!)
         coVerify(exactly = 0, verifyBlock = { callback?.onSuccess(any()) })
         coVerify(exactly = 1, verifyBlock = { callback?.onFail(any()) })
-    }
-
-    @Test
-    fun searchByTitleSuccess() {
-        val stup = "this is news Title"
-        val newsItem = newsUseCase.searchByTitle(testModelsGenerator.generateNewsModel(stup).newsItems!!, stup)
-        assertNotNull(newsItem)
-        assertEquals(newsItem?.title, stup)
-    }
-
-    @Test
-    fun searchByTitleFail() {
-        val stupTitle = "this is news Title"
-        val stupSearch = "search title"
-        val newsItem = newsUseCase.searchByTitle(testModelsGenerator.generateNewsModel(stupTitle).newsItems!!, stupSearch)
-        assertEquals(newsItem, null)
     }
 
     @AfterEach

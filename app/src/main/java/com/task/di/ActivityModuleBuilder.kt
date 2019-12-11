@@ -15,7 +15,7 @@
  */
 package com.task.di
 import com.task.ui.component.details.DetailsActivity
-import com.task.ui.component.news.ImageGalleryActivity
+import com.task.ui.component.productImages.ImageGalleryActivity
 import com.task.ui.component.splash.SplashActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector

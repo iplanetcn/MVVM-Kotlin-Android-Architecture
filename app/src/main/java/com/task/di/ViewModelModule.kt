@@ -17,7 +17,7 @@ package com.task.di
 
 import androidx.lifecycle.ViewModel
 import com.task.ui.component.details.DetailsViewModel
-import com.task.ui.component.news.ImageGalleryViewModel
+import com.task.ui.component.productImages.ImageGalleryViewModel
 import com.task.ui.component.splash.SplashViewModel
 import dagger.Binds
 import dagger.Module

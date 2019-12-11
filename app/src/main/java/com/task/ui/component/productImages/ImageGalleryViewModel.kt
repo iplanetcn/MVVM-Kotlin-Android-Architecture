@@ -1,4 +1,4 @@
-package com.task.ui.component.news
+package com.task.ui.component.productImages
 
 import androidx.lifecycle.MutableLiveData
 import com.task.data.remote.Error
