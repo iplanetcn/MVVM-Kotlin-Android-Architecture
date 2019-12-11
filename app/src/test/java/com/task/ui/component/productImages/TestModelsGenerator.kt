@@ -3,7 +3,6 @@ package com.task.ui.component.productImages
 import com.google.gson.Gson
 import com.task.data.remote.dto.images.Image
 import com.task.data.remote.dto.images.Images
-import io.mockk.spyk
 import java.io.File
 
 /**
@@ -20,10 +19,9 @@ class TestModelsGenerator {
     }
 
     fun generateImagesModelWithEmptyList(): Images {
-        val imagesModel: Images = spyk()
         val images = mutableListOf<Image>()
-        imagesModel.images = images
-        return imagesModel
+        this.images.images = images
+        return this.images
     }
 
 
