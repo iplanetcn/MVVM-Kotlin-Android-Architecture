@@ -5,7 +5,7 @@ import com.task.data.remote.Data
 import com.task.data.remote.Error
 import com.task.data.remote.dto.images.Images
 import com.task.ui.base.listeners.BaseCallback
-import com.task.usecase.images.ImagesUseCase
+import com.task.usecase.images.GiphyUseCase
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -25,7 +25,7 @@ class NewsUseCaseTest {
     private var dataRepository: DataRepository? = null
     private var callback: BaseCallback? = spyk()
 
-    private lateinit var imagesUseCase: ImagesUseCase
+    private lateinit var giphyUseCase: GiphyUseCase
     private val testModelsGenerator: TestModelsGenerator = TestModelsGenerator()
     private lateinit var imagesModel: Images
 
@@ -38,15 +38,15 @@ class NewsUseCaseTest {
     fun setUp() {
         testModelsGenerator.initImagesModel()
         dataRepository = DataRepository(mockk(), mockk())
-        imagesUseCase = ImagesUseCase(dataRepository!!, mainCoroutineRule.coroutineContext)
+        giphyUseCase = GiphyUseCase(dataRepository!!, mainCoroutineRule.coroutineContext)
     }
 
     @Test
     fun testGetProductInfoSuccess() {
         imagesModel = testModelsGenerator.images
         val serviceResponse = Data(code = Error.SUCCESS_CODE, data = imagesModel)
-        coEvery { dataRepository?.requestImages() } returns serviceResponse
-        imagesUseCase.getImages(callback!!)
+        coEvery { dataRepository?.requestGiphy() } returns serviceResponse
+        giphyUseCase.getImages(callback!!)
         coVerify(exactly = 1, verifyBlock = { callback?.onSuccess(any()) })
         coVerify(exactly = 0, verifyBlock = { callback?.onFail(any()) })
     }
@@ -54,8 +54,8 @@ class NewsUseCaseTest {
     @Test
     fun testGetProductInfoFail() {
         val serviceResponse = Data(code = Error.ERROR_CODE, data = null)
-        coEvery { dataRepository?.requestImages() } returns serviceResponse
-        imagesUseCase.getImages(callback!!)
+        coEvery { dataRepository?.requestGiphy() } returns serviceResponse
+        giphyUseCase.getImages(callback!!)
         coVerify(exactly = 0, verifyBlock = { callback?.onSuccess(any()) })
         coVerify(exactly = 1, verifyBlock = { callback?.onFail(any()) })
     }

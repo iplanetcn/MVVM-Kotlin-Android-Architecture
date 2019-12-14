@@ -12,8 +12,7 @@ import javax.inject.Inject
 
 class DataRepository @Inject
 constructor(private val remoteRepository: RemoteRepository, private val localRepository: LocalRepository) {
-
-    fun requestImages(): Data? {
-        return remoteRepository.requestImages()
+    fun requestGiphy(): Data? {
+        return remoteRepository.requestGiphy()
     }
 }

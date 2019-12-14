@@ -19,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.component.productImages.ImageGalleryActivity"/>
+        <activity android:name=".ui.component.giphyGallery.GiphyGalleryActivity"/>
         <activity android:name=".ui.component.details.DetailsActivity"/>
     </application>
 

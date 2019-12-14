@@ -3,6 +3,7 @@ package com.task
 import android.app.Activity
 import android.content.Context
 import androidx.multidex.MultiDexApplication
+import com.facebook.drawee.backends.pipeline.Fresco
 import com.task.di.DaggerAppComponent
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector

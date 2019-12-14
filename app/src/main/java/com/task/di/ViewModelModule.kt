@@ -17,7 +17,7 @@ package com.task.di
 
 import androidx.lifecycle.ViewModel
 import com.task.ui.component.details.DetailsViewModel
-import com.task.ui.component.productImages.ImageGalleryViewModel
+import com.task.ui.component.giphyGallery.GiphyGalleryViewModel
 import com.task.ui.component.splash.SplashViewModel
 import dagger.Binds
 import dagger.Module
@@ -28,8 +28,8 @@ import dagger.multibindings.IntoMap
 abstract class ViewModelModule {
     @Binds
     @IntoMap
-    @ViewModelKey(ImageGalleryViewModel::class)
-    abstract fun bindUserViewModel(viewModel: ImageGalleryViewModel): ViewModel
+    @ViewModelKey(GiphyGalleryViewModel::class)
+    abstract fun bindUserViewModel(galleryViewModel: GiphyGalleryViewModel): ViewModel
 
     @Binds
     @IntoMap

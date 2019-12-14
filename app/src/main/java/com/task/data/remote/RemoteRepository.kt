@@ -3,7 +3,7 @@ package com.task.data.remote
 import com.task.App
 import com.task.data.remote.Error.Companion.NETWORK_ERROR
 import com.task.data.remote.Error.Companion.NO_INTERNET_CONNECTION
-import com.task.data.remote.service.ProductImages
+import com.task.data.remote.service.GiphyService
 import com.task.utils.Constants
 import com.task.utils.Constants.INSTANCE.ERROR_UNDEFINED
 import com.task.utils.Network.Utils.isConnected
@@ -18,12 +18,12 @@ import javax.inject.Inject
 
 class RemoteRepository @Inject
 constructor(private val serviceGenerator: ServiceGenerator) {
-    fun requestImages(): Data? {
+    fun requestGiphy(): Data? {
         return if (!isConnected(App.context)) {
             Data(Error(code = NO_INTERNET_CONNECTION, description = NETWORK_ERROR))
         } else {
-            val productImagesService = serviceGenerator.createService(ProductImages::class.java, Constants.BASE_URL)
-            processCall(productImagesService.fetchImages(), false)
+            val productImagesService = serviceGenerator.createService(GiphyService::class.java, Constants.BASE_URL)
+            processCall(productImagesService.getGiphy(), false)
         }
     }
 
