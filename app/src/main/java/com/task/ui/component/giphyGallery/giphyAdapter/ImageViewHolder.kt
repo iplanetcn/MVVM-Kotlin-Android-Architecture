@@ -7,7 +7,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.task.R
 import com.task.ui.base.listeners.RecyclerItemListener
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.product_image_item.*
+import kotlinx.android.synthetic.main.gif_image_item.*
 
 /**
  * Created by AhmedEltaher on 5/12/2016.

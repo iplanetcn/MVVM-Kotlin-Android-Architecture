@@ -4,13 +4,11 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.squareup.picasso.Picasso
 import com.task.R
 import com.task.ui.ViewModelFactory
 import com.task.ui.base.BaseActivity
 import com.task.utils.Constants
-import kotlinx.android.synthetic.main.details_layout.*
-import kotlinx.android.synthetic.main.product_image_item.*
+import kotlinx.android.synthetic.main.gif_image_item.*
 import javax.inject.Inject
 
 /**
@@ -32,15 +30,15 @@ class DetailsActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.initIntentData(intent.getStringExtra(Constants.IMAGE_ITEM_KEY))
-        viewModel.getImage()
-        viewModel.uri.observe(this, Observer { bindImage(it) })
+        viewModel.getGif()
+        viewModel.uri.observe(this, Observer { bindGif(it) })
     }
 
     override fun initializeViewModel() {
         viewModel = viewModelFactory.create(viewModel::class.java)
     }
 
-    private fun bindImage(uri: String) {
+    private fun bindGif(uri: String) {
         Glide.with(iv_product_image.context).asGif().diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .load(uri).placeholder(R.drawable.car_icon).into(iv_product_image)
     }

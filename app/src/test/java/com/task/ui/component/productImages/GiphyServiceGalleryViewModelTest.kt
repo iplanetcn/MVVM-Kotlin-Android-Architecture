@@ -39,44 +39,44 @@ class GiphyServiceGalleryViewModelTest {
     fun setUp() {
         // Create class under test
         // We initialise the repository with no tasks
-        testModelsGenerator.initImagesModel()
+        testModelsGenerator.initGifsDataModel()
         giphyGalleryViewModel = GiphyGalleryViewModel(giphyUseCase)
     }
 
     @Test
-    fun getImagesList() {
+    fun getGifsList() {
         // Let's do a synchronous answer for the callback
-        val imagesModeltest = testModelsGenerator.images
+        val imagesModeltest = testModelsGenerator.gifsData
         //1- Mock - test
         (giphyGalleryViewModel).apply {
-            imagesLiveData.value = imagesModeltest
+            gifsLiveData.value = imagesModeltest
         }
         val callbackCapture: CapturingSlot<BaseCallback> = slot()
-        every { giphyUseCase.getImages(callback = capture(callbackCapture)) } answers
+        every { giphyUseCase.getGifs(callback = capture(callbackCapture)) } answers
                 { callbackCapture.captured.onSuccess(imagesModeltest) }
         //2-Call
-        giphyGalleryViewModel.getImages()
+        giphyGalleryViewModel.getGifs()
         //3-verify
-        assert(imagesModeltest == giphyGalleryViewModel.imagesLiveData.value)
+        assert(imagesModeltest == giphyGalleryViewModel.gifsLiveData.value)
     }
 
     @Test
     fun getEmptyImagesList() {
         // Let's do a synchronous answer for the callback
-        val imagesModeltest = testModelsGenerator.generateImagesModelWithEmptyList()
+        val gifsModelstest = testModelsGenerator.generateGifsModelWithEmptyList()
         //1- Mock - test
         (giphyGalleryViewModel).apply {
-            imagesLiveData.value = imagesModeltest
+            gifsLiveData.value = gifsModelstest
         }
         val callbackCapture: CapturingSlot<BaseCallback> = slot()
-        every { giphyUseCase.getImages(callback = capture(callbackCapture)) } answers
-                { callbackCapture.captured.onSuccess(imagesModeltest) }
+        every { giphyUseCase.getGifs(callback = capture(callbackCapture)) } answers
+                { callbackCapture.captured.onSuccess(gifsModelstest) }
         //2-Call
-        giphyGalleryViewModel.getImages()
+        giphyGalleryViewModel.getGifs()
         //3-verify
-        val images = giphyGalleryViewModel.imagesLiveData.value
-        assert(images?.images?.isNullOrEmpty() ?: false)
-        assert(imagesModeltest == giphyGalleryViewModel.imagesLiveData.value)
+        val gifsData = giphyGalleryViewModel.gifsLiveData.value
+        assert(gifsData?.gifsList?.isNullOrEmpty() ?: false)
+        assert(gifsModelstest == giphyGalleryViewModel.gifsLiveData.value)
     }
 
     @Test
@@ -85,10 +85,10 @@ class GiphyServiceGalleryViewModelTest {
         val error = Error()
         //1- Mock - test
         val callbackCapture: CapturingSlot<BaseCallback> = slot()
-        every { giphyUseCase.getImages(callback = capture(callbackCapture)) } answers
+        every { giphyUseCase.getGifs(callback = capture(callbackCapture)) } answers
                 { callbackCapture.captured.onFail(error) }
         //2-Call
-        giphyGalleryViewModel.getImages()
+        giphyGalleryViewModel.getGifs()
         //3-verify
         assert(true == giphyGalleryViewModel.noInterNetConnection.value)
     }
@@ -100,10 +100,10 @@ class GiphyServiceGalleryViewModelTest {
         val error = Error(description = errorString, code = 1001)
         //1- Mock - test
         val callbackCapture: CapturingSlot<BaseCallback> = slot()
-        every { giphyUseCase.getImages(callback = capture(callbackCapture)) } answers
+        every { giphyUseCase.getGifs(callback = capture(callbackCapture)) } answers
                 { callbackCapture.captured.onFail(error) }
         //2-Call
-        giphyGalleryViewModel.getImages()
+        giphyGalleryViewModel.getGifs()
         //3-verify
         assert(error == giphyGalleryViewModel.showError.value)
     }

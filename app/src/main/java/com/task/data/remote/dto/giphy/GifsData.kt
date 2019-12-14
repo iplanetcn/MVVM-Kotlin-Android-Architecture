@@ -3,9 +3,9 @@ package com.task.data.remote.dto.giphy
 
 import com.google.gson.annotations.SerializedName
 
-data class Gify(
+data class GifsData(
         @SerializedName("data")
-        var info: List<Data?>?,
+        var gifsList: List<Gif?>?,
         var meta: Meta?,
         var pagination: Pagination?
 )

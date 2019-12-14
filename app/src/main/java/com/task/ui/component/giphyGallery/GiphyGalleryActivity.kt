@@ -8,13 +8,12 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.test.espresso.IdlingResource
-import com.facebook.drawee.backends.pipeline.Fresco
 import com.task.R
 import com.task.ui.ViewModelFactory
 import com.task.ui.base.BaseActivity
 import com.task.ui.base.listeners.RecyclerItemListener
 import com.task.ui.component.details.DetailsActivity
-import com.task.ui.component.giphyGallery.giphyAdapter.ImagesAdapter
+import com.task.ui.component.giphyGallery.giphyAdapter.GifsAdapter
 import com.task.utils.Constants
 import com.task.utils.EspressoIdlingResource
 import com.task.utils.MiddleDividerItemDecoration
@@ -48,9 +47,9 @@ class GiphyGalleryActivity : BaseActivity(), RecyclerItemListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ic_toolbar_refresh.setOnClickListener {
-            getImages()
+            getGifsList()
         }
-        initializeNewsList()
+        initializeGifsList()
         init(giphyGalleryViewModel)
     }
 
@@ -70,11 +69,11 @@ class GiphyGalleryActivity : BaseActivity(), RecyclerItemListener {
         })
 
 
-        galleryViewModel.imagesLiveData.observe(this, Observer {
+        galleryViewModel.gifsLiveData.observe(this, Observer {
             // we don't need any null checks here for the adapter since LiveData guarantees that
-            if (!(it.info.isNullOrEmpty())) {
-                val imagesAdapter = ImagesAdapter(this, it.info!!)
-                rv_images_list.adapter = imagesAdapter
+            if (!(it.gifsList.isNullOrEmpty())) {
+                val gifsAdapter = GifsAdapter(this, it.gifsList!!)
+                rv_images_list.adapter = gifsAdapter
                 showDataView(true)
             } else {
                 showDataView(false)
@@ -82,10 +81,10 @@ class GiphyGalleryActivity : BaseActivity(), RecyclerItemListener {
             }
             EspressoIdlingResource.decrement()
         })
-        getImages()
+        getGifsList()
     }
 
-    private fun initializeNewsList() {
+    private fun initializeGifsList() {
         val itemDecoration = MiddleDividerItemDecoration(this, MiddleDividerItemDecoration.ALL)
         itemDecoration.setDividerColor(ContextCompat.getColor(this, android.R.color.holo_red_dark))
         rv_images_list.addItemDecoration(itemDecoration)
@@ -93,20 +92,21 @@ class GiphyGalleryActivity : BaseActivity(), RecyclerItemListener {
     }
 
     override fun onItemSelected(position: Int) {
-        val image = giphyGalleryViewModel.imagesLiveData.value?.info?.get(position)
-        if (image != null && !image.images?.downsized?.url.isNullOrEmpty()) {
-            navigateToDetailsScreen(image?.images?.fixedHeight?.url!!)
+        val gif = giphyGalleryViewModel.getGif(position)
+        val url = gif?.images?.downsized?.url ?: ""
+        if (url.isNotEmpty()) {
+            navigateToDetailsScreen(url)
         } else {
             toast(getString(R.string.cant_retrieve_image))
         }
     }
 
-    private fun getImages() {
+    private fun getGifsList() {
         pb_loading.visibility = VISIBLE
         tv_no_data.visibility = GONE
         cl_images_list.visibility = GONE
         EspressoIdlingResource.increment()
-        giphyGalleryViewModel.getImages()
+        giphyGalleryViewModel.getGifs()
     }
 
     private fun navigateToDetailsScreen(uri: String) {

@@ -1,8 +1,8 @@
 package com.task.ui.component.productImages
 
 import com.google.gson.Gson
-import com.task.data.remote.dto.images.Image
-import com.task.data.remote.dto.images.Images
+import com.task.data.remote.dto.giphy.Gif
+import com.task.data.remote.dto.giphy.GifsData
 import java.io.File
 
 /**
@@ -10,18 +10,17 @@ import java.io.File
  */
 
 class TestModelsGenerator {
-    lateinit var images: Images
+    lateinit var gifsData: GifsData
 
-    fun initImagesModel() {
+    fun initGifsDataModel() {
         val gson = Gson()
-        val jsonString = getJson("ProductInfo.json")
-        images = gson.fromJson(jsonString, Images::class.java)
+        val jsonString = getJson("GifsApiResponse.json")
+        gifsData = gson.fromJson(jsonString, GifsData::class.java)
     }
 
-    fun generateImagesModelWithEmptyList(): Images {
-        val images = mutableListOf<Image>()
-        this.images.images = images
-        return this.images
+    fun generateGifsModelWithEmptyList(): GifsData {
+        this.gifsData.gifsList = mutableListOf<Gif>()
+        return this.gifsData
     }
 
 

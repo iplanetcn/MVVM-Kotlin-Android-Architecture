@@ -14,7 +14,7 @@ import kotlin.coroutines.CoroutineContext
 class GiphyUseCase @Inject
 constructor(private val dataRepository: DataRepository, override val coroutineContext: CoroutineContext) : CoroutineScope {
 
-    fun getImages(callback: BaseCallback) {
+    fun getGifs(callback: BaseCallback) {
         launch {
             try {
                 val serviceResponse: Data? = withContext(Dispatchers.IO) { dataRepository.requestGiphy() }

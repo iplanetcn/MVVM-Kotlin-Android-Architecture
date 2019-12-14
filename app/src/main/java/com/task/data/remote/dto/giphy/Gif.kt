@@ -3,7 +3,7 @@ package com.task.data.remote.dto.giphy
 
 import com.google.gson.annotations.SerializedName
 
-data class Data(
+data class Gif(
         var analytics: Analytics?,
         @SerializedName("bitly_gif_url")
         var bitlyGifUrl: String = "",

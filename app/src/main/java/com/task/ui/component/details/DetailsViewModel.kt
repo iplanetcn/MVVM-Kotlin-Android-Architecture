@@ -17,7 +17,7 @@ constructor() : BaseViewModel() {
         this.url = url
     }
 
-    fun getImage() {
+    fun getGif() {
         uri.value = url
     }
 }
