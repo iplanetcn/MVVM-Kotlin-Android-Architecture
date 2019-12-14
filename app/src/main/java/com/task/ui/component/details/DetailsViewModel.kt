@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class DetailsViewModel @Inject
 constructor() : BaseViewModel() {
-    private lateinit var url: String
+    private var url: String = ""
     var uri: MutableLiveData<String> = MutableLiveData()
 
     fun initIntentData(url: String) {
