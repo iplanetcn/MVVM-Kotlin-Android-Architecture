@@ -8,7 +8,7 @@ import com.task.R
 import com.task.ui.ViewModelFactory
 import com.task.ui.base.BaseActivity
 import com.task.utils.Constants
-import kotlinx.android.synthetic.main.gif_image_item.*
+import kotlinx.android.synthetic.main.details_layout.*
 import javax.inject.Inject
 
 /**
@@ -39,7 +39,7 @@ class DetailsActivity : BaseActivity() {
     }
 
     private fun bindGif(uri: String) {
-        Glide.with(iv_product_image.context).asGif().diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                .load(uri).placeholder(R.drawable.car_icon).into(iv_product_image)
+        Glide.with(iv_full_Image.context).asGif().diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .load(uri).placeholder(R.drawable.ic_camera_roll_black_48dp).into(iv_full_Image)
     }
 }

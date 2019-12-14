@@ -37,7 +37,7 @@ class GiphyServiceGalleryActivityTest {
     fun testScroll() {
         Espresso.onView(ViewMatchers.withId(R.id.rv_images_list))
                 .perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, ViewActions.click()))
-        Espresso.onView(ViewMatchers.withId(R.id.iv_product_full_Image)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(ViewMatchers.withId(R.id.iv_full_Image)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 
     @Test

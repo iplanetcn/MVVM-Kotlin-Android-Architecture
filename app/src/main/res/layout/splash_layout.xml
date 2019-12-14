@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:contentDescription="@null"
         android:scaleType="fitXY"
-        android:src="@drawable/cars_icon"
+        android:src="@drawable/ic_camera_roll_black_48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
