@@ -1,4 +1,4 @@
-package com.task.ui.component.productImages
+package com.task.ui.component.giphyGallery
 
 import com.task.data.DataRepository
 import com.task.data.remote.Data

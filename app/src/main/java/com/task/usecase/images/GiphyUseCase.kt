@@ -1,6 +1,6 @@
 package com.task.usecase.images
 
-import com.task.data.DataRepository
+import com.task.data.DataSource
 import com.task.data.remote.Data
 import com.task.data.remote.Error
 import com.task.ui.base.listeners.BaseCallback
@@ -12,7 +12,7 @@ import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
 class GiphyUseCase @Inject
-constructor(private val dataRepository: DataRepository, override val coroutineContext: CoroutineContext) : CoroutineScope {
+constructor(private val dataRepository: DataSource, override val coroutineContext: CoroutineContext) : CoroutineScope {
 
     fun getGifs(callback: BaseCallback) {
         launch {

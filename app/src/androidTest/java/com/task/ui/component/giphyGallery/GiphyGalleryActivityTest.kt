@@ -12,7 +12,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import com.task.R
-import com.task.ui.component.giphyGallery.GiphyGalleryActivity
 import org.hamcrest.Matchers
 import org.junit.After
 import org.junit.Before
@@ -22,7 +21,7 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
-class GiphyServiceGalleryActivityTest {
+class GiphyGalleryActivityTest {
     @get:Rule
     var mActivityTestRule = ActivityTestRule(GiphyGalleryActivity::class.java)
     private var mIdlingResource: IdlingResource? = null
@@ -53,7 +52,7 @@ class GiphyServiceGalleryActivityTest {
     }
 
     @Test
-    fun displayNewsData() {
+    fun displayGifsListData() {
         Espresso.onView(ViewMatchers.withId(R.id.rv_images_list)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
         Espresso.onView(ViewMatchers.withId(R.id.pb_loading)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())))
     }

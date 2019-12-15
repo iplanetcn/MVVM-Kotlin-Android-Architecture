@@ -1,9 +1,8 @@
-package com.task.ui.component.productImages
+package com.task.ui.component.giphyGallery
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.task.data.remote.Error
 import com.task.ui.base.listeners.BaseCallback
-import com.task.ui.component.giphyGallery.GiphyGalleryViewModel
 import com.task.usecase.images.GiphyUseCase
 import io.mockk.CapturingSlot
 import io.mockk.every

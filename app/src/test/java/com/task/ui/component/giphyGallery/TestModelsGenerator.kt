@@ -1,4 +1,4 @@
-package com.task.ui.component.productImages
+package com.task.ui.component.giphyGallery
 
 import com.google.gson.Gson
 import com.task.data.remote.dto.giphy.Gif

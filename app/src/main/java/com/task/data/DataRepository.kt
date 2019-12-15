@@ -11,8 +11,8 @@ import javax.inject.Inject
  */
 
 class DataRepository @Inject
-constructor(private val remoteRepository: RemoteRepository, private val localRepository: LocalRepository) {
-    fun requestGiphy(): Data? {
+constructor(private val remoteRepository: RemoteRepository, private val localRepository: LocalRepository) : DataSource {
+    override fun requestGiphy(): Data? {
         return remoteRepository.requestGiphy()
     }
 }

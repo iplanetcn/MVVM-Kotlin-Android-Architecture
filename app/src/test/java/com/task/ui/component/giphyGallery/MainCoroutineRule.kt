@@ -1,4 +1,4 @@
-package com.task.ui.component.productImages
+package com.task.ui.component.giphyGallery
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

@@ -14,12 +14,13 @@ android {
     compileSdkVersion 29
     buildToolsVersion '29.0.2'
     defaultConfig {
-        applicationId 'com.eltaher.task'
+        applicationId 'com.task'
         minSdkVersion 16
         targetSdkVersion 29
         versionCode project.versionCode
         versionName project.versionName
         multiDexEnabled true
+        testInstrumentationRunner "com.task.CustomTestRunner"
     }
     buildTypes {
         debug {
@@ -31,15 +32,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    flavorDimensions 'testing'
+    productFlavors {
+        uitest {
+            dimension = 'testing'
+        }
+        defualt {
 
+        }
+    }
     compileOptions {
         targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
     }
-    productFlavors {
-    }
     defaultConfig {
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments clearPackageData: 'true'
     }
     kotlinOptions {
@@ -51,7 +57,18 @@ android {
         pickFirst 'META-INF/kotlinx-coroutines-core.kotlin_module'
         pickFirst 'META-INF/kotlinx-coroutines-io.kotlin_module'
     }
-
+    sourceSets {
+        String sharedTestAssetsDir = 'src/sharedTest/assets'
+        String sharedTestResourcessDir = 'src/sharedTest/resources'
+        test {
+            assets.srcDir sharedTestAssetsDir
+            resources.srcDir(sharedTestResourcessDir)
+        }
+        androidTest {
+            assets.srcDir sharedTestAssetsDir
+            resources.srcDir(sharedTestResourcessDir)
+        }
+    }
 }
 repositories {
     repositories {
@@ -80,7 +97,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'org.assertj:assertj-core:3.14.0'
     androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
-    androidTestImplementation ('androidx.test.espresso:espresso-core:3.2.0',{
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.2.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     implementation 'androidx.test:rules:1.2.0'
@@ -103,6 +120,7 @@ dependencies {
     implementation "com.google.dagger:dagger-android:2.22.1"
     implementation "com.google.dagger:dagger-android-support:2.22.1"
     kapt 'com.google.dagger:dagger-android-processor:2.22.1'
+    kaptAndroidTest "com.google.dagger:dagger-compiler:2.25.2"
 
     //Logging
     implementation 'com.squareup.okhttp3:logging-interceptor:4.2.2'
@@ -111,6 +129,9 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.7.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.7.0'
     implementation 'com.squareup.okhttp3:okhttp:4.2.2'
+    implementation 'com.squareup.okhttp3:mockwebserver:4.2.2'
+    androidTestImplementation 'com.squareup.okhttp3:mockwebserver:4.2.2'
+    androidTestImplementation 'com.squareup.retrofit2:retrofit-mock:2.7.0'
 
     //picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
@@ -135,10 +156,6 @@ dependencies {
     implementation 'android.arch.lifecycle:viewmodel:1.1.1'
     implementation 'android.arch.lifecycle:extensions:1.1.1'
 
-    implementation 'com.squareup.okhttp3:mockwebserver:4.2.2'
-
-    implementation 'com.facebook.fresco:fresco:2.0.0'
     implementation 'com.github.bumptech.glide:glide:4.10.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
-    implementation 'com.koushikdutta.ion:ion:3.0.8'
 }

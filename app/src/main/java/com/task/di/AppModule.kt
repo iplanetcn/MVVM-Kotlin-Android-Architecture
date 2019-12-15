@@ -18,6 +18,8 @@ package com.task.di
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.task.data.local.LocalRepository
+import com.task.data.remote.RemoteRepository
+import com.task.data.remote.ServiceGenerator
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.Dispatchers
@@ -26,10 +28,11 @@ import kotlin.coroutines.CoroutineContext
 
 @Module
 class AppModule {
+
     @Provides
     @Singleton
-    fun provideLocalRepository(): LocalRepository {
-        return LocalRepository()
+    fun provideRemoteRepository(): RemoteRepository {
+        return RemoteRepository(ServiceGenerator(provideGson()))
     }
 
     @Provides
