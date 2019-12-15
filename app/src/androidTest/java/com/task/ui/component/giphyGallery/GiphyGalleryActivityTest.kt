@@ -31,7 +31,6 @@ class GiphyGalleryActivityTest {
         IdlingRegistry.getInstance().register(mIdlingResource)
     }
 
-
     @Test
     fun testScroll() {
         Espresso.onView(ViewMatchers.withId(R.id.rv_images_list))

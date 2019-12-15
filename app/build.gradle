@@ -57,18 +57,6 @@ android {
         pickFirst 'META-INF/kotlinx-coroutines-core.kotlin_module'
         pickFirst 'META-INF/kotlinx-coroutines-io.kotlin_module'
     }
-    sourceSets {
-        String sharedTestAssetsDir = 'src/sharedTest/assets'
-        String sharedTestResourcessDir = 'src/sharedTest/resources'
-        test {
-            assets.srcDir sharedTestAssetsDir
-            resources.srcDir(sharedTestResourcessDir)
-        }
-        androidTest {
-            assets.srcDir sharedTestAssetsDir
-            resources.srcDir(sharedTestResourcessDir)
-        }
-    }
 }
 repositories {
     repositories {
