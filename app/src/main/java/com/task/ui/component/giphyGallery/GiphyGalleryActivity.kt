@@ -77,7 +77,7 @@ class GiphyGalleryActivity : BaseActivity(), RecyclerItemListener {
                 showDataView(true)
             } else {
                 showDataView(false)
-                toast(getString(R.string.wrong_message))
+                toast(getString(R.string.no_images_message))
             }
             EspressoIdlingResource.decrement()
         })

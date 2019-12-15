@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.gif_image_item.*
 class ImageViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
     fun bind(position: Int, url: String, recyclerItemListener: RecyclerItemListener) {
-        Glide.with(iv_gif_image.context).asGif().diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+        Glide.with(iv_gif_image.context).asGif().diskCacheStrategy(DiskCacheStrategy.ALL)
                 .load(url).placeholder(R.drawable.ic_camera_roll_black_48dp).into(iv_gif_image)
         cl_image_item.setOnClickListener { recyclerItemListener.onItemSelected(position) }
     }

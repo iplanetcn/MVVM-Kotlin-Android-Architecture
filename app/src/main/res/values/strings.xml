@@ -4,5 +4,6 @@
     <string name="task">Mobimeo Task</string>
     <string name="no_internet">Please check your internet connection</string>
     <string name="wrong_message">some thing went wrong!</string>
+    <string name="no_images_message">No images Found!</string>
     <string name="cant_retrieve_image">Can\'t retrieve the Image</string>
 </resources>

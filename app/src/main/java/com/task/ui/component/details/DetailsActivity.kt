@@ -39,7 +39,7 @@ class DetailsActivity : BaseActivity() {
     }
 
     private fun bindGif(uri: String) {
-        Glide.with(iv_full_Image.context).asGif().diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+        Glide.with(iv_full_Image.context).asGif().diskCacheStrategy(DiskCacheStrategy.ALL)
                 .load(uri).placeholder(R.drawable.ic_camera_roll_black_48dp).into(iv_full_Image)
     }
 }
