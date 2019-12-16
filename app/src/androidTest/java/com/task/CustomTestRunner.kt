@@ -6,7 +6,7 @@ import androidx.test.runner.AndroidJUnitRunner
 
 /**
  * A custom [AndroidJUnitRunner] used to replace the application used in tests with a
- * [MyTestApplication].
+ * [CustomTestRunner].
  */
 class CustomTestRunner : AndroidJUnitRunner() {
 

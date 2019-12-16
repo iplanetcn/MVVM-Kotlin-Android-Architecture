@@ -17,7 +17,6 @@
 package com.task.di
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.task.data.local.LocalRepository
 import com.task.data.remote.RemoteRepository
 import com.task.data.remote.ServiceGenerator
 import dagger.Module
