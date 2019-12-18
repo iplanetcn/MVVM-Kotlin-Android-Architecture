@@ -25,12 +25,12 @@
             app:layout_constraintTop_toBottomOf="@id/toolbar_layout">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_images_list"
+                android:id="@+id/cl_product_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_images_list"
+                    android:id="@+id/rv_product_list"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"

@@ -15,7 +15,7 @@
  */
 package com.task.di
 import com.task.ui.component.details.DetailsActivity
-import com.task.ui.component.giphyGallery.GiphyGalleryActivity
+import com.task.ui.component.productsList.ProductsActivity
 import com.task.ui.component.splash.SplashActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -27,7 +27,7 @@ abstract class ActivityModuleBuilder {
     abstract fun contributeSplashActivity(): SplashActivity
 
     @ContributesAndroidInjector
-    abstract fun contributeHomeActivity(): GiphyGalleryActivity
+    abstract fun contributeHomeActivity(): ProductsActivity
 
     @ContributesAndroidInjector
     abstract fun contributeDetailsActivity(): DetailsActivity

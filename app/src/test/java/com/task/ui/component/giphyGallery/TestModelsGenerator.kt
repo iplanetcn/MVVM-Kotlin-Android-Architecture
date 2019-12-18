@@ -1,8 +1,6 @@
 package com.task.ui.component.giphyGallery
 
 import com.google.gson.Gson
-import com.task.data.remote.dto.giphy.Gif
-import com.task.data.remote.dto.giphy.GifsData
 import java.io.File
 
 /**

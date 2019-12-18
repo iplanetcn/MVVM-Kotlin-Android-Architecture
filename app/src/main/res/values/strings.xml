@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Ahmed Eltaher Task</string>
     <string name="no_data">No Data</string>
-    <string name="task">Mobimeo Task</string>
+    <string name="task">Check24 Task</string>
     <string name="no_internet">Please check your internet connection</string>
-    <string name="no_images_message">No images Found!</string>
+    <string name="no_products_found">No products Found!</string>
     <string name="cant_retrieve_image">Can\'t retrieve the Image</string>
 </resources>

@@ -3,9 +3,8 @@ package com.task.ui.component.giphyGallery
 import com.task.data.DataRepository
 import com.task.data.remote.Data
 import com.task.data.remote.Error
-import com.task.data.remote.dto.giphy.GifsData
 import com.task.ui.base.listeners.BaseCallback
-import com.task.usecase.images.GiphyUseCase
+import com.task.usecase.images.ProductUseCase
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -25,7 +24,7 @@ class NewsUseCaseTest {
     private var dataRepository: DataRepository? = null
     private var callback: BaseCallback? = spyk()
 
-    private lateinit var giphyUseCase: GiphyUseCase
+    private lateinit var productUseCase: ProductUseCase
     private val testModelsGenerator: TestModelsGenerator = TestModelsGenerator()
     private lateinit var gifsData: GifsData
 
@@ -38,7 +37,7 @@ class NewsUseCaseTest {
     fun setUp() {
         testModelsGenerator.initGifsDataModel()
         dataRepository = DataRepository(mockk(), mockk())
-        giphyUseCase = GiphyUseCase(dataRepository!!, mainCoroutineRule.coroutineContext)
+        productUseCase = ProductUseCase(dataRepository!!, mainCoroutineRule.coroutineContext)
     }
 
     @Test
@@ -46,7 +45,7 @@ class NewsUseCaseTest {
         gifsData = testModelsGenerator.gifsData
         val serviceResponse = Data(code = Error.SUCCESS_CODE, data = gifsData)
         coEvery { dataRepository?.requestGiphy() } returns serviceResponse
-        giphyUseCase.getGifs(callback!!)
+        productUseCase.getGifs(callback!!)
         coVerify(exactly = 1, verifyBlock = { callback?.onSuccess(any()) })
         coVerify(exactly = 0, verifyBlock = { callback?.onFail(any()) })
     }
@@ -55,7 +54,7 @@ class NewsUseCaseTest {
     fun testGetProductInfoFail() {
         val serviceResponse = Data(code = Error.ERROR_CODE, data = null)
         coEvery { dataRepository?.requestGiphy() } returns serviceResponse
-        giphyUseCase.getGifs(callback!!)
+        productUseCase.getGifs(callback!!)
         coVerify(exactly = 0, verifyBlock = { callback?.onSuccess(any()) })
         coVerify(exactly = 1, verifyBlock = { callback?.onFail(any()) })
     }

@@ -29,7 +29,7 @@ class DetailsActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        intent.getStringExtra(Constants.IMAGE_ITEM_KEY)?.let { viewModel.initIntentData(it) }
+        intent.getStringExtra(Constants.Product_ITEM_KEY)?.let { viewModel.initIntentData(it) }
         viewModel.getGif()
         viewModel.uri.observe(this, Observer { bindGif(it) })
     }

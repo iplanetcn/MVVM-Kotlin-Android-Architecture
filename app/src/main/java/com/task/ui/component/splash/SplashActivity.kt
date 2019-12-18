@@ -5,7 +5,7 @@ import androidx.lifecycle.Observer
 import com.task.R
 import com.task.ui.ViewModelFactory
 import com.task.ui.base.BaseActivity
-import com.task.ui.component.giphyGallery.GiphyGalleryActivity
+import com.task.ui.component.productsList.ProductsActivity
 import org.jetbrains.anko.startActivity
 import javax.inject.Inject
 
@@ -30,7 +30,7 @@ class SplashActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         splashViewModel.gotoMainScreen.observe(this, Observer {
-            startActivity<GiphyGalleryActivity>()
+            startActivity<ProductsActivity>()
             finish()
         })
         splashViewModel.sleepAndGO()

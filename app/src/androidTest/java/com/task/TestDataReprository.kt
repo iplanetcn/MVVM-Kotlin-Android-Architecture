@@ -7,7 +7,6 @@ import com.task.TestDataReprository.Instance.initData
 import com.task.data.DataSource
 import com.task.data.remote.Data
 import com.task.data.remote.Error
-import com.task.data.remote.dto.giphy.GifsData
 import java.io.InputStream
 import javax.inject.Inject
 

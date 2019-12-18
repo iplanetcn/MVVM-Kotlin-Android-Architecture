@@ -3,7 +3,7 @@ package com.task.data.remote
 import com.task.App
 import com.task.data.remote.Error.Companion.NETWORK_ERROR
 import com.task.data.remote.Error.Companion.NO_INTERNET_CONNECTION
-import com.task.data.remote.service.GiphyService
+import com.task.data.remote.service.ProductsService
 import com.task.utils.Constants
 import com.task.utils.Constants.INSTANCE.ERROR_UNDEFINED
 import com.task.utils.Network.Utils.isConnected
@@ -22,8 +22,8 @@ constructor(private val serviceGenerator: ServiceGenerator) {
         return if (!isConnected(App.context)) {
             Data(Error(code = NO_INTERNET_CONNECTION, description = NETWORK_ERROR))
         } else {
-            val gifImagesService = serviceGenerator.createService(GiphyService::class.java, Constants.BASE_URL)
-            processCall(gifImagesService.getGiphy(), false)
+            val productsService = serviceGenerator.createService(ProductsService::class.java, Constants.BASE_URL)
+            processCall(productsService.getProducts(), false)
         }
     }
 

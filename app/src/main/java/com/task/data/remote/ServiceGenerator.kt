@@ -24,8 +24,6 @@ constructor(private val gson: Gson) {
     private val TIMEOUT_READ = 30   //In seconds
     private val CONTENT_TYPE = "Content-Type"
     private val CONTENT_TYPE_VALUE = "application/json"
-    private val API_KEY = "API-Key"
-    private val API_KEY_VALUE = "JqTcQcMuk7uHipS2fYt1INIGcGwc4wwa"
 
     private val okHttpBuilder: OkHttpClient.Builder = OkHttpClient.Builder()
     private var retrofit: Retrofit? = null
@@ -35,7 +33,6 @@ constructor(private val gson: Gson) {
 
         val request = original.newBuilder()
                 .header(CONTENT_TYPE, CONTENT_TYPE_VALUE)
-                .header(API_KEY, API_KEY_VALUE)
                 .method(original.method, original.body)
                 .build()
 
