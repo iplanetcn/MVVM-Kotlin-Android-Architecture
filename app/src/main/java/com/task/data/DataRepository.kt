@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 class DataRepository @Inject
 constructor(private val remoteRepository: RemoteRepository, private val localRepository: LocalRepository) : DataSource {
-    override fun requestGiphy(): Data? {
+    override fun requestProducts(): Data? {
         return remoteRepository.requestGiphy()
     }
 }

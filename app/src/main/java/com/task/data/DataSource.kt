@@ -4,5 +4,5 @@ import com.task.data.remote.Data
 
 
 interface DataSource {
-    fun requestGiphy(): Data?
+    fun requestProducts(): Data?
 }

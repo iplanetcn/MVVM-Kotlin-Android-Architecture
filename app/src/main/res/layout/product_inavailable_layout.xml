@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cl_product_item"
-    android:background="@android:color/darker_gray"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@android:color/darker_gray">
 
     <ImageView
         android:id="@+id/iv_product"
@@ -23,8 +23,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:padding="@dimen/default_margin"
         android:orientation="vertical"
+        android:padding="@dimen/default_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_product"
         app:layout_constraintTop_toTopOf="parent">
@@ -49,6 +49,14 @@
             android:text="TextView"
             android:textColor="@android:color/black"
             tools:text="Here’s what you need to know to start your day." />
+
+        <RatingBar
+            android:id="@+id/rb_product_rating"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="0.1" />
 
 
     </LinearLayout>

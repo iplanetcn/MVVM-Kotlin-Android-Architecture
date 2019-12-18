@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 class TestDataReprository @Inject constructor() : DataSource {
 
-    override fun requestGiphy(): Data? {
+    override fun requestProducts(): Data? {
         return initData()
     }
 

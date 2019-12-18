@@ -44,7 +44,7 @@ class NewsUseCaseTest {
     fun testGetProductInfoSuccess() {
         gifsData = testModelsGenerator.gifsData
         val serviceResponse = Data(code = Error.SUCCESS_CODE, data = gifsData)
-        coEvery { dataRepository?.requestGiphy() } returns serviceResponse
+        coEvery { dataRepository?.requestProducts() } returns serviceResponse
         productUseCase.getGifs(callback!!)
         coVerify(exactly = 1, verifyBlock = { callback?.onSuccess(any()) })
         coVerify(exactly = 0, verifyBlock = { callback?.onFail(any()) })
@@ -53,7 +53,7 @@ class NewsUseCaseTest {
     @Test
     fun testGetProductInfoFail() {
         val serviceResponse = Data(code = Error.ERROR_CODE, data = null)
-        coEvery { dataRepository?.requestGiphy() } returns serviceResponse
+        coEvery { dataRepository?.requestProducts() } returns serviceResponse
         productUseCase.getGifs(callback!!)
         coVerify(exactly = 0, verifyBlock = { callback?.onSuccess(any()) })
         coVerify(exactly = 1, verifyBlock = { callback?.onFail(any()) })

@@ -12,20 +12,20 @@ import com.task.ui.base.listeners.RecyclerItemListener
  * Created by AhmedEltaher on 5/12/2016.
  */
 
-class ProductAdapter(private val onItemClickListener: RecyclerItemListener,var productList: List<Product?>) : RecyclerView.Adapter<AvalibleProductViewHolder>() {
+class ProductAdapter(private val onItemClickListener: RecyclerItemListener,var productList: List<Product?>) : RecyclerView.Adapter<AvailableProductViewHolder>() {
     private val TYPE_AVAILABLE = 1
     private val TYPE_NOT_AVAILABLE = 2
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AvalibleProductViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AvailableProductViewHolder {
         if (viewType == TYPE_NOT_AVAILABLE) {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.product_inavailable_layout, parent, false)
-            return AvalibleProductViewHolder(view)
+            return AvailableProductViewHolder(view)
         }
         val view = LayoutInflater.from(parent.context).inflate(R.layout.product_available_layout, parent, false)
-        return AvalibleProductViewHolder(view)
+        return AvailableProductViewHolder(view)
     }
 
-    override fun onBindViewHolder(holderAvalible: AvalibleProductViewHolder, position: Int) {
-        holderAvalible.bind(position, productList[position], onItemClickListener)
+    override fun onBindViewHolder(holderAvailable: AvailableProductViewHolder, position: Int) {
+        holderAvailable.bind(position, productList[position], onItemClickListener)
     }
 
     override fun getItemCount(): Int {

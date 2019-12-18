@@ -17,7 +17,7 @@ constructor(private val dataRepository: DataSource, override val coroutineContex
     fun getGifs(callback: BaseCallback) {
         launch {
             try {
-                val serviceResponse: Data? = withContext(Dispatchers.IO) { dataRepository.requestGiphy() }
+                val serviceResponse: Data? = withContext(Dispatchers.IO) { dataRepository.requestProducts() }
                 if (serviceResponse?.code == Error.SUCCESS_CODE) {
                     val data = serviceResponse.data
                     callback.onSuccess(data)

@@ -20,6 +20,7 @@ class NotAvalibleProductViewHolder(override val containerView: View) : RecyclerV
         tv_description.text = product?.longDescription ?: ""
         Picasso.get().load(product?.imageURL).placeholder(R.drawable.ic_camera_roll_black_48dp).error(R.drawable.ic_camera_roll_black_48dp).into(iv_product)
         cl_product_item.setOnClickListener { recyclerItemListener.onItemSelected(position) }
+        rb_product_rating.rating = product?.rating?.toFloat() ?: 0f
     }
 }
 
