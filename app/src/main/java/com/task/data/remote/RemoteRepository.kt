@@ -22,8 +22,8 @@ constructor(private val serviceGenerator: ServiceGenerator) {
         return if (!isConnected(App.context)) {
             Data(Error(code = NO_INTERNET_CONNECTION, description = NETWORK_ERROR))
         } else {
-            val productImagesService = serviceGenerator.createService(GiphyService::class.java, Constants.BASE_URL)
-            processCall(productImagesService.getGiphy(), false)
+            val gifImagesService = serviceGenerator.createService(GiphyService::class.java, Constants.BASE_URL)
+            processCall(gifImagesService.getGiphy(), false)
         }
     }
 
