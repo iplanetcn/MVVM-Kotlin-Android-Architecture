@@ -32,6 +32,8 @@ class ProductsActivity : BaseActivity(), RecyclerItemListener {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
+    lateinit var productAdapter: ProductAdapter
+
     override val layoutId: Int
         get() = R.layout.home_activity
 
@@ -53,6 +55,23 @@ class ProductsActivity : BaseActivity(), RecyclerItemListener {
     }
 
     private fun init(productsViewModel: ProductsViewModel) {
+        btn_all_filter.setOnClickListener {
+            val availableProducts = productsViewModel.productsLiveData.value?.products
+            if (availableProducts?.isNullOrEmpty() != true) {
+                productAdapter.productList = availableProducts
+            }
+            productAdapter.notifyDataSetChanged()
+        }
+
+        btn_available_filter.setOnClickListener {
+            val availableProducts = productsViewModel.productsLiveData.value?.products?.filter {
+                it?.available ?: false
+            }
+            if (availableProducts?.isNullOrEmpty() != true) {
+                productAdapter.productList = availableProducts
+                productAdapter.notifyDataSetChanged()
+            }
+        }
         productsViewModel.noInterNetConnection.observe(this, Observer {
             if (it) {
                 tv_no_data.visibility = VISIBLE
@@ -71,13 +90,15 @@ class ProductsActivity : BaseActivity(), RecyclerItemListener {
         productsViewModel.productsLiveData.observe(this, Observer {
             // we don't need any null checks here for the adapter since LiveData guarantees that
             if (!(it.products.isNullOrEmpty())) {
-                val productAdapter = ProductAdapter(this, it.products!!)
+                productAdapter = ProductAdapter(this, it.products!!)
                 rv_product_list.adapter = productAdapter
                 showDataView(true)
             } else {
                 showDataView(false)
                 toast(getString(R.string.no_products_found))
             }
+            tv_title.text = it.header?.headerTitle
+            tv_description.text = it.header?.headerTitle
             EspressoIdlingResource.decrement()
         })
         getProductList()

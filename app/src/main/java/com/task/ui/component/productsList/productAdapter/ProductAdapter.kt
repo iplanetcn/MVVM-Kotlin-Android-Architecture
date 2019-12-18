@@ -12,7 +12,7 @@ import com.task.ui.base.listeners.RecyclerItemListener
  * Created by AhmedEltaher on 5/12/2016.
  */
 
-class ProductAdapter(private val onItemClickListener: RecyclerItemListener, private val productList: List<Product?>) : RecyclerView.Adapter<AvalibleProductViewHolder>() {
+class ProductAdapter(private val onItemClickListener: RecyclerItemListener,var productList: List<Product?>) : RecyclerView.Adapter<AvalibleProductViewHolder>() {
     private val TYPE_AVAILABLE = 1
     private val TYPE_NOT_AVAILABLE = 2
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AvalibleProductViewHolder {

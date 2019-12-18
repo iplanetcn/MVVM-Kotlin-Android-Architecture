@@ -16,13 +16,13 @@ import javax.inject.Inject
 class ProductsViewModel @Inject
 constructor(productUseCase: ProductUseCase) : BaseViewModel() {
 
-    private var giphyUseCase = productUseCase
+    private var productUseCase = productUseCase
     var productsLiveData: MutableLiveData<Products> = MutableLiveData()
     var noInterNetConnection: MutableLiveData<Boolean> = MutableLiveData()
     var showError: MutableLiveData<Error> = MutableLiveData()
 
     fun getGifs() {
-        giphyUseCase.getGifs(callback)
+        productUseCase.getGifs(callback)
     }
 
     private val callback = object : BaseCallback {

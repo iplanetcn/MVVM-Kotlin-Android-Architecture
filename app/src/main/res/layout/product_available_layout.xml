@@ -55,7 +55,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="3dp"
-        android:background="@android:color/holo_blue_dark"
+        android:background="@color/colorPrimaryDark"
         android:padding="@dimen/default_margin"
         app:layout_constraintBottom_toBottomOf="@+id/ll_description" />
 </androidx.constraintlayout.widget.ConstraintLayout>
