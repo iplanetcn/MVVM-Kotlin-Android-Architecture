@@ -55,73 +55,23 @@ class NewsListActivity : BaseActivity(), RecyclerItemListener {
                 newsListViewModel.onSearchClick(et_search.text?.toString()!!)
             }
         }
-        initializeNewsList()
-//        init(newsListViewModel)
-        getNews()
-    }
-
-    private fun init(viewModel: NewsListViewModel) {
-//        viewModel.noInterNetConnection.observe(this, Observer {
-//            if (it) {
-//                tv_no_data.visibility = VISIBLE
-//                rl_news_list.visibility = GONE
-//                toast("Please check your Internet connection!")
-//                pb_loading.visibility = GONE
-//            }
-//        })
-//
-//        viewModel.showError.observe(this, Observer {
-//            showDataView(false)
-//            toast("" + it?.description)
-//        })
-
-//        newsListViewModel.newsSearchFound.observe(this, Observer { newsItem ->
-//            if (newsItem != null) {
-//                navigateToDetailsScreen(newsItem)
-//            } else {
-//                showSearchError()
-//            }
-//            pb_loading.visibility = GONE
-//        })
-
-//        viewModel.newsModel.observe(this, Observer { newsModel ->
-//            // we don't need any null checks here for the adapter since LiveData guarantees that
-//            if (!(newsModel?.newsItems.isNullOrEmpty())) {
-//                val newsAdapter = NewsAdapter(this, newsModel?.newsItems!!)
-//                rv_news_list.adapter = newsAdapter
-//                showDataView(true)
-//            } else {
-//                showDataView(false)
-//                toast("some thing went wrong!")
-//            }
-//            EspressoIdlingResource.decrement()
-//        })
+        val layoutManager = LinearLayoutManager(this)
+        rv_news_list.layoutManager = layoutManager
+        rv_news_list.setHasFixedSize(true)
         getNews()
     }
 
     private fun bindListData(newsModel: NewsModel) {
-        if (!(newsModel?.newsItems.isNullOrEmpty())) {
-            val newsAdapter = NewsAdapter(this, newsModel?.newsItems!!)
+        if (!(newsModel.newsItems.isNullOrEmpty())) {
+            val newsAdapter = NewsAdapter(this, newsModel.newsItems)
             rv_news_list.adapter = newsAdapter
             showDataView(true)
         } else {
             showDataView(false)
-            toast("some thing went wrong!")
         }
     }
-
-    private fun initializeNewsList() {
-        val layoutManager = LinearLayoutManager(this)
-        rv_news_list.layoutManager = layoutManager
-        rv_news_list.setHasFixedSize(true)
-    }
-
-
     private fun getNews() {
-        pb_loading.visibility = VISIBLE
-        tv_no_data.visibility = GONE
-        rl_news_list.visibility = GONE
-        EspressoIdlingResource.increment()
+        showLoadingView()
         newsListViewModel.getNews()
     }
 
@@ -139,7 +89,7 @@ class NewsListActivity : BaseActivity(), RecyclerItemListener {
         pb_loading.toGone()
     }
 
-    private fun showLoader() {
+    private fun showLoadingView() {
         pb_loading.toVisible()
         tv_no_data.toGone()
         rl_news_list.toGone()
@@ -159,7 +109,7 @@ class NewsListActivity : BaseActivity(), RecyclerItemListener {
     private fun handleNewsList(newsModel: Resource<NewsModel>) {
         when (newsModel) {
             is Resource.Loading -> {
-                showLoader()
+                showLoadingView()
             }
             is Resource.Success -> {
                 bindListData(newsModel = newsModel.data!!)

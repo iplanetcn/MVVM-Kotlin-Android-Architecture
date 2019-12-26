@@ -11,7 +11,7 @@ import com.task.ui.base.listeners.BaseCallback
  */
 
 interface UseCase {
-    fun getNews(callback: BaseCallback)
+    fun getNews()
     fun searchByTitle(keyWord: String): NewsItem?
     val newsLiveData: LiveData<Resource<NewsModel>>
 }

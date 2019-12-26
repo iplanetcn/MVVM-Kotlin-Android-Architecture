@@ -2,7 +2,9 @@ package com.task.data.remote
 
 import com.task.App
 import com.task.data.Resource
+import com.task.data.remote.Error.Companion.ErrorsMap
 import com.task.data.remote.Error.Companion.NETWORK_ERROR
+import com.task.data.remote.Error.Companion.NO_INTERNET_CONNECTION
 import com.task.data.remote.dto.NewsModel
 import com.task.data.remote.service.NewsService
 import com.task.utils.Constants
@@ -21,25 +23,21 @@ class RemoteRepository @Inject
 constructor(private val serviceGenerator: ServiceGenerator) : RemoteSource {
 
     override fun requestNews(): Resource<NewsModel> {
-        return if (!isConnected(App.context)) {
-            Resource.DataError(Error(code = -1, description = NETWORK_ERROR))
-        } else {
-            val newsService = serviceGenerator.createService(NewsService::class.java, Constants.BASE_URL)
-            return when (val response = processCall(newsService.fetchNews(), false)) {
-                is Data -> {
-                    Resource.Success(data = response.data as NewsModel)
-                }
-                else -> {
-                    Resource.DataError(error = response as Error)
-                }
+        val newsService = serviceGenerator.createService(NewsService::class.java, Constants.BASE_URL)
+        return when (val response = processCall(newsService.fetchNews(), false)) {
+            is Data -> {
+                Resource.Success(data = response.data as NewsModel)
             }
-
+            else -> {
+                Resource.DataError(error = response as Error)
+            }
         }
     }
 
     private fun processCall(call: Call<*>, isVoid: Boolean): Any {
         if (!isConnected(App.context)) {
-            return Error()
+            return Error(code = NO_INTERNET_CONNECTION, description = ErrorsMap[NO_INTERNET_CONNECTION]
+                    ?: "")
         }
         try {
             val response = call.execute()

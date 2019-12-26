@@ -28,7 +28,7 @@ constructor(private val dataRepository: DataSource, override val coroutineContex
     override val newsLiveData: LiveData<Resource<NewsModel>> = newsMutableLiveData
 
 
-    override fun getNews(callback: BaseCallback) {
+    override fun getNews() {
         newsMutableLiveData.postValue(Resource.Loading())
         var serviceResponse: Resource<NewsModel>? = null
         launch {
@@ -38,7 +38,6 @@ constructor(private val dataRepository: DataSource, override val coroutineContex
                     println("{serviceResponse is here ${serviceResponse?.data}")
                     newsMutableLiveData.postValue(serviceResponse)
                     println("{newsMutableLiveData is here ${newsMutableLiveData.value?.data}")
-                    callback.onSuccess(serviceResponse?.data as NewsModel)
                 } catch (e: Exception) {
                     println("{Exception is here $e")
                     newsMutableLiveData.postValue(Resource.DataError(Error(e)))
@@ -46,7 +45,7 @@ constructor(private val dataRepository: DataSource, override val coroutineContex
             }
         }
     }
-    
+
     override fun searchByTitle(keyWord: String): NewsItem? {
         val news = newsMutableLiveData.value?.data?.newsItems
         if (!news.isNullOrEmpty()) {

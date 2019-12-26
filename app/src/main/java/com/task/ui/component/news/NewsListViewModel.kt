@@ -22,20 +22,9 @@ constructor(private val newsDataUseCase: NewsUseCase) : BaseViewModel() {
     var noSearchFound: MutableLiveData<Boolean> = MutableLiveData()
 
     fun getNews() {
-        newsDataUseCase.getNews(callback)
+        newsDataUseCase.getNews()
     }
 
-    private val callback = object : BaseCallback {
-
-        override fun onSuccess(data: Any) {
-            println("{live data is here ${newsLiveData.value?.data}")
-        }
-
-        override fun onFail(error: Error) {
-
-        }
-
-    }
 
     fun onSearchClick(newsTitle: String) {
         if (newsTitle.isNotEmpty()) {
