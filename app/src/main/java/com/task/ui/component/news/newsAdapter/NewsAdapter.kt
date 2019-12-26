@@ -19,7 +19,7 @@ class NewsAdapter(private val onItemClickListener: RecyclerItemListener, private
     }
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        holder.bind(position, news[position], onItemClickListener)
+        holder.bind( news[position], onItemClickListener)
     }
 
     override fun getItemCount(): Int {

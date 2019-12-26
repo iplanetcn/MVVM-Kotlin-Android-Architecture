@@ -49,7 +49,7 @@ class NewsListViewModelTest {
         val newsModeltest = testModelsGenerator.generateNewsModel()
         //1- Mock - double test
         (newsListViewModel).apply {
-            newsModel.value = newsModeltest
+            newsLiveData.value = newsModeltest
             newsSearchFound.value = testModelsGenerator.generateNewsItemModel()
             noSearchFound.value = false
         }
@@ -59,7 +59,7 @@ class NewsListViewModelTest {
         //2-Call
         newsListViewModel.getNews()
         //3-verify
-        assert(newsModeltest == newsListViewModel.newsModel.value)
+        assert(newsModeltest == newsListViewModel.newsLiveData.value)
     }
 
     @Test

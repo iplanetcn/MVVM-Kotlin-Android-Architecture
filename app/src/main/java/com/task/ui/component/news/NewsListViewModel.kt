@@ -1,6 +1,8 @@
 package com.task.ui.component.news
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.task.data.Resource
 import com.task.data.remote.Error
 import com.task.data.remote.dto.NewsItem
 import com.task.data.remote.dto.NewsModel
@@ -14,47 +16,33 @@ import javax.inject.Inject
  */
 
 class NewsListViewModel @Inject
-constructor(newsDataUseCase: NewsUseCase) : BaseViewModel() {
-
-    private var newsUseCase: NewsUseCase = newsDataUseCase
-    var newsModel: MutableLiveData<NewsModel> = MutableLiveData()
+constructor(private val newsDataUseCase: NewsUseCase) : BaseViewModel() {
+    var newsLiveData: LiveData<Resource<NewsModel>> = newsDataUseCase.newsLiveData
     var newsSearchFound: MutableLiveData<NewsItem> = MutableLiveData()
     var noSearchFound: MutableLiveData<Boolean> = MutableLiveData()
-    var noInterNetConnection: MutableLiveData<Boolean> = MutableLiveData()
-    var showError: MutableLiveData<Error> = MutableLiveData()
 
     fun getNews() {
-        newsUseCase.getNews(callback)
+        newsDataUseCase.getNews(callback)
     }
 
     private val callback = object : BaseCallback {
 
         override fun onSuccess(data: Any) {
-            newsModel.postValue(data as NewsModel)
+            println("{live data is here ${newsLiveData.value?.data}")
         }
 
         override fun onFail(error: Error) {
-            if (error.code == Error.NO_INTERNET_CONNECTION) {
-                noInterNetConnection.postValue(true)
-            } else {
-                showError.postValue(error)
-            }
 
         }
+
     }
 
     fun onSearchClick(newsTitle: String) {
-        val news = newsModel.value?.newsItems
-        if (newsTitle.isNotEmpty() && !news.isNullOrEmpty()) {
-            newsSearchFound.value = newsUseCase.searchByTitle(news, newsTitle)
+        if (newsTitle.isNotEmpty()) {
+            newsSearchFound.value = newsDataUseCase.searchByTitle(newsTitle)
             noSearchFound.value = (newsSearchFound.value == null)
         } else {
             noSearchFound.value = true
         }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-
     }
 }
