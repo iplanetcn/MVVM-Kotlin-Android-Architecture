@@ -47,7 +47,7 @@ class NewsListActivity : BaseActivity(), RecyclerItemListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ic_toolbar_refresh.setOnClickListener {
-            getNews()
+            newsListViewModel.getNews()
         }
         btn_search.setOnClickListener {
             if (!(et_search.text?.toString().isNullOrEmpty())) {
@@ -58,7 +58,7 @@ class NewsListActivity : BaseActivity(), RecyclerItemListener {
         val layoutManager = LinearLayoutManager(this)
         rv_news_list.layoutManager = layoutManager
         rv_news_list.setHasFixedSize(true)
-        getNews()
+        newsListViewModel.getNews()
     }
 
     private fun bindListData(newsModel: NewsModel) {
@@ -70,9 +70,9 @@ class NewsListActivity : BaseActivity(), RecyclerItemListener {
             showDataView(false)
         }
     }
-    private fun getNews() {
-        showLoadingView()
-        newsListViewModel.getNews()
+
+    override fun onItemSelected(newsItem: NewsItem) {
+        navigateToDetailsScreen(newsItem)
     }
 
     private fun navigateToDetailsScreen(news: NewsItem) {
@@ -97,23 +97,21 @@ class NewsListActivity : BaseActivity(), RecyclerItemListener {
     }
 
 
-    private fun showSearchResualt(newsItem: NewsItem) {
-        if (newsItem != null) {
-            navigateToDetailsScreen(newsItem)
-        } else {
-            showSearchError()
-        }
-        pb_loading.visibility = GONE
+    private fun showSearchResult(newsItem: NewsItem) {
+        navigateToDetailsScreen(newsItem)
+        showSearchError()
+        pb_loading.toGone()
+    }
+
+    private fun noSearchResult(unit: Unit) {
+        showSearchError()
+        pb_loading.toGone()
     }
 
     private fun handleNewsList(newsModel: Resource<NewsModel>) {
         when (newsModel) {
-            is Resource.Loading -> {
-                showLoadingView()
-            }
-            is Resource.Success -> {
-                bindListData(newsModel = newsModel.data!!)
-            }
+            is Resource.Loading -> showLoadingView()
+            is Resource.Success -> newsModel.data?.let { bindListData(newsModel = it) }
             is Resource.DataError -> {
                 showDataView(false)
                 toast("${newsModel.error?.description}")
@@ -124,10 +122,7 @@ class NewsListActivity : BaseActivity(), RecyclerItemListener {
 
     override fun observeViewModel() {
         observe(newsListViewModel.newsLiveData, ::handleNewsList)
-        observe(newsListViewModel.newsSearchFound, ::showSearchResualt)
-    }
-
-    override fun onItemSelected(newsItem: NewsItem) {
-        navigateToDetailsScreen(newsItem)
+        observe(newsListViewModel.newsSearchFound, ::showSearchResult)
+        observe(newsListViewModel.noSearchFound, ::noSearchResult)
     }
 }

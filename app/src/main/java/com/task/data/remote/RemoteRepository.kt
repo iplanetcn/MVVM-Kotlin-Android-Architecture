@@ -36,8 +36,7 @@ constructor(private val serviceGenerator: ServiceGenerator) : RemoteSource {
 
     private fun processCall(call: Call<*>, isVoid: Boolean): Any {
         if (!isConnected(App.context)) {
-            return Error(code = NO_INTERNET_CONNECTION, description = ErrorsMap[NO_INTERNET_CONNECTION]
-                    ?: "")
+            return Error(code = NO_INTERNET_CONNECTION, description = ErrorsMap[NO_INTERNET_CONNECTION] ?: "")
         }
         try {
             val response = call.execute()

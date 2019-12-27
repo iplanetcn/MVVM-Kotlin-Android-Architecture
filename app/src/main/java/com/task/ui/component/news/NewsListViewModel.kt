@@ -3,11 +3,9 @@ package com.task.ui.component.news
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.task.data.Resource
-import com.task.data.remote.Error
 import com.task.data.remote.dto.NewsItem
 import com.task.data.remote.dto.NewsModel
 import com.task.ui.base.BaseViewModel
-import com.task.ui.base.listeners.BaseCallback
 import com.task.usecase.NewsUseCase
 import javax.inject.Inject
 
@@ -17,9 +15,14 @@ import javax.inject.Inject
 
 class NewsListViewModel @Inject
 constructor(private val newsDataUseCase: NewsUseCase) : BaseViewModel() {
+
+//    private val _noTaskIconRes = MutableLiveData<Int>()
+//    val noTaskIconRes: LiveData<Int>
+//        get() = _noTaskIconRes
     var newsLiveData: LiveData<Resource<NewsModel>> = newsDataUseCase.newsLiveData
+
     var newsSearchFound: MutableLiveData<NewsItem> = MutableLiveData()
-    var noSearchFound: MutableLiveData<Boolean> = MutableLiveData()
+    var noSearchFound: MutableLiveData<Unit> = MutableLiveData()
 
     fun getNews() {
         newsDataUseCase.getNews()
@@ -28,10 +31,14 @@ constructor(private val newsDataUseCase: NewsUseCase) : BaseViewModel() {
 
     fun onSearchClick(newsTitle: String) {
         if (newsTitle.isNotEmpty()) {
-            newsSearchFound.value = newsDataUseCase.searchByTitle(newsTitle)
-            noSearchFound.value = (newsSearchFound.value == null)
+            val newsItem = newsDataUseCase.searchByTitle(newsTitle)
+            if (newsItem != null) {
+                newsSearchFound.value = newsItem
+            } else {
+                noSearchFound.postValue(Unit)
+            }
         } else {
-            noSearchFound.value = true
+            noSearchFound.postValue(Unit)
         }
     }
 }
