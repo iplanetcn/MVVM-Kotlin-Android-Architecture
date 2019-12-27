@@ -4,21 +4,21 @@ import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.annotation.VisibleForTesting
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.test.espresso.IdlingResource
+import com.google.android.material.snackbar.Snackbar
 import com.task.R
 import com.task.data.Resource
 import com.task.data.remote.dto.NewsItem
 import com.task.data.remote.dto.NewsModel
 import com.task.ui.ViewModelFactory
 import com.task.ui.base.BaseActivity
-import com.task.ui.base.listeners.RecyclerItemListener
 import com.task.ui.component.details.DetailsActivity
 import com.task.ui.component.news.newsAdapter.NewsAdapter
 import com.task.utils.*
 import kotlinx.android.synthetic.main.home_activity.*
 import kotlinx.android.synthetic.main.toolbar.*
-import org.jetbrains.anko.design.snackbar
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.toast
 import javax.inject.Inject
@@ -27,7 +27,7 @@ import javax.inject.Inject
  * Created by AhmedEltaher on 5/12/2016
  */
 
-class NewsListActivity : BaseActivity(), RecyclerItemListener {
+class NewsListActivity : BaseActivity() {
     @Inject
     lateinit var newsListViewModel: NewsListViewModel
     @Inject
@@ -63,7 +63,7 @@ class NewsListActivity : BaseActivity(), RecyclerItemListener {
 
     private fun bindListData(newsModel: NewsModel) {
         if (!(newsModel.newsItems.isNullOrEmpty())) {
-            val newsAdapter = NewsAdapter(this, newsModel.newsItems)
+            val newsAdapter = NewsAdapter(newsListViewModel, newsModel.newsItems)
             rv_news_list.adapter = newsAdapter
             showDataView(true)
         } else {
@@ -71,16 +71,18 @@ class NewsListActivity : BaseActivity(), RecyclerItemListener {
         }
     }
 
-    override fun onItemSelected(newsItem: NewsItem) {
-        navigateToDetailsScreen(newsItem)
+    private fun navigateToDetailsScreen(navigateEvent: Event<NewsItem>) {
+        navigateEvent.getContentIfNotHandled()?.let {
+            startActivity(intentFor<DetailsActivity>(Constants.NEWS_ITEM_KEY to it))
+        }
     }
 
-    private fun navigateToDetailsScreen(news: NewsItem) {
-        startActivity(intentFor<DetailsActivity>(Constants.NEWS_ITEM_KEY to news))
+    private fun observeSnackBarMessages(event: LiveData<Event<Int>>) {
+        rl_news_list.setupSnackbar(this, event, Snackbar.LENGTH_LONG)
     }
 
     private fun showSearchError() {
-        rl_news_list.snackbar(R.string.search_error)
+        newsListViewModel.showSnackbarMessage(R.string.search_error)
     }
 
     private fun showDataView(show: Boolean) {
@@ -98,8 +100,7 @@ class NewsListActivity : BaseActivity(), RecyclerItemListener {
 
 
     private fun showSearchResult(newsItem: NewsItem) {
-        navigateToDetailsScreen(newsItem)
-        showSearchError()
+        newsListViewModel.openNewsDetails(newsItem)
         pb_loading.toGone()
     }
 
@@ -124,5 +125,7 @@ class NewsListActivity : BaseActivity(), RecyclerItemListener {
         observe(newsListViewModel.newsLiveData, ::handleNewsList)
         observe(newsListViewModel.newsSearchFound, ::showSearchResult)
         observe(newsListViewModel.noSearchFound, ::noSearchResult)
+        observeEvent(newsListViewModel.openNewsDetails, ::navigateToDetailsScreen)
+        observeSnackBarMessages(newsListViewModel.showSnackBar)
     }
 }

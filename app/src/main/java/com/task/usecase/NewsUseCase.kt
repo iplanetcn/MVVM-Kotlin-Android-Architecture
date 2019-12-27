@@ -30,7 +30,7 @@ constructor(private val dataRepository: DataSource, override val coroutineContex
 
     override fun getNews() {
         newsMutableLiveData.postValue(Resource.Loading())
-        var serviceResponse: Resource<NewsModel>? = null
+        var serviceResponse: Resource<NewsModel>?
         launch {
             withContext(Dispatchers.IO) {
                 try {
